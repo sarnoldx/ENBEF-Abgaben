@@ -1,46 +1,151 @@
-\documentclass[12p,marginpar=false, accentcolor=TUDa-2c]{tudapub}
-\usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
+\documentclass[
+ngerman,
+twoside,
+pdfa=false,
+ruledheaders=section,%Ebene bis zu der die Überschriften mit Linien abgetrennt werden, vgl. DEMO-TUDaPub
+class=report,% Basisdokumentenklasse. Wählt die Korrespondierende KOMA-Script Klasse
+thesis={type=sta},% Dokumententyp Thesis, für Dissertationen siehe die Demo-Datei DEMO-TUDaPhd
+accentcolor=TUDa-2c,% Auswahl der Akzentfarbe
+custommargins=false,% Ränder werden mithilfe von typearea automatisch berechnet
+marginpar=false,% Kopfzeile und Fußzeile erstrecken sich nicht über die Randnotizspalte
+%BCOR=5mm,%Bindekorrektur, falls notwendig
+parskip=half-,%Absatzkennzeichnung durch Abstand vgl. KOMA-Sript
+fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu klein
+%	logofile=tuda_logo.pdf, %Falls die Logo Dateien nicht installiert sind
+]{tudapub}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Download des TU-Logos
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://download.hrz.tu-darmstadt.de/protected/CE/TUDa_LaTeX/tuda_logo.pdf
+% Der Pfad zum Logo kann als "logofile" angegeben werden.
+
+%%%%%%%%%%%%%%%%%%%
+% Sprachanpassung & Verbesserte Trennregeln
+%%%%%%%%%%%%%%%%%%%
+\usepackage[english, main=ngerman]{babel}
+\usepackage[autostyle]{csquotes}% Anführungszeichen vereinfacht
+\usepackage{microtype}
+
+%%%%%%%%%%%%%%%%%%%
+% Literaturverzeichnis
+%%%%%%%%%%%%%%%%%%%
+\usepackage{biblatex}   % Literaturverzeichnis
+\addbibresource{HausarbeitBib.bib}
+
+%%%%%%%%%%%%%%%%%%%
+% Paketvorschläge Tabellen
+%%%%%%%%%%%%%%%%%%%
+%\usepackage{array}     % Basispaket für Tabellenkonfiguration, wird von den folgenden automatisch geladen
+\usepackage{tabularx}   % Tabellen, die sich automatisch der Breite anpassen
+%\usepackage{longtable} % Mehrseitige Tabellen
+%\usepackage{xltabular} % Mehrseitige Tabellen mit anpassarer Breite
+\usepackage{booktabs}   % Verbesserte Möglichkeiten für Tabellenlayout über horizontale Linien
+
+%%%%%%%%%%%%%%%%%%%
+% Paketvorschläge Mathematik
+%%%%%%%%%%%%%%%%%%%
+\usepackage{mathtools} % erweiterte Fassung von amsmath
+\usepackage{amssymb}   % erweiterter Zeichensatz
+\usepackage[decimalsymbol=comma]{siunitx}   % Einheiten
+
+
+%%%%%%%%%%%%%%%%%
+% Eigenen Pakete Gruppe03
+%%%%%%%%%%%%%%%%%%%%
+%\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{listings}
 \usepackage[framed, numbered]{matlab-prettifier}
-\usepackage[style=numeric]{biblatex}
-\usepackage{amsthm,amsmath,amssymb}
+%\usepackage[style=numeric]{biblatex}
+%\usepackage{amsthm}
+%\usepackage[squaren]{SIunits}
 \usepackage{enumitem}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
-\usepackage{booktabs}
-\usepackage{siunitx}
+%\usepackage{booktabs}
 \pgfplotsset{compat=1.12}
 \usepackage{dsfont}
-\author{Dominik Schiller, Constanze Kramer, Tobias Lingenberg, Simon Arnold}
-\date{\today}
-\title{Schriftliche Ausarbeitung der zweiten Übung des Moduls ENBEF}
+
+%%%%%%%%%%%%%%%%%%%
+% Pseudocode
+%%%%%%%%%%%%%%%%%%%
+\usepackage[linesnumbered,lined,boxruled]{algorithm2e} % Package für Pseudocode
+
+%%%%%%%%%%%%%%%%%%%
+% Plotting und Grafik
+%%%%%%%%%%%%%%%%%%%
+\usepackage{tuda-pgfplots} % Package für Plotting with TUDa mods
+
+%%%%%%%%%%%%%%%%%%%
+% Sonstiges
+%%%%%%%%%%%%%%%%%%%
+\usepackage{blindtext} % Package für Blindtext
+
 \begin{document}
+	\title{Ausarbeitung Übung 2}
+	%\subtitle{Ein Untertitel, wenn nötig}
+	\author[D. Schiller, C. Kramer, S.Arnold, T. Lingenberg]{Dominik Schiller \and Constanze Kramer \and Simon Arnold \and Tobias Lingenberg} %optionales Argument ist die Signatur,
+	%\reviewer{Gutachter 1 \and Gutachterin 2} %Gutachten
+	
+	%Diese Felder werden untereinander auf der Titelseite platziert.
+	\department{} % Das Kürzel wird automatisch ersetzt und als Studienfach gewählt, siehe Liste der Kürzel im Dokument.
+
+	
+	\date{\today}
+	%\examdate{\today}
+	
+	%	\tuprints{urn=1234,printid=12345}
+	%	\dedication{Für alle, die \TeX{} nutzen.}
+	
 	\maketitle
-	\tableofcontents
-	\section{Selbstständigkeitserklärung}
-	Wir erklären, dass wir die vorliegende Arbeit selbstständig und ohne Benutzung anderer als der angegebenen Hilfsmittel angefertigt haben. Die aus fremden Quellen direkt oder indirekt übernommenen Gedanken haben wir als solche kenntlich gemacht.\\
+	\pagenumbering{gobble} % Seitenzahlen angezeigt, startet ab dem Inhaltsverzeichnis
 	
 	
-	Ort, Datum Unterschrift \rule{6cm}{0.4pt} \\
+	\affidavit
+	%\AffidavitSignature
+	%\AffidavitSignature
 	
-	Ort, Datum Unterschrift  \rule{6cm}{0.4pt}\\
 	
-	Ort, Datum Unterschrift \rule{6cm}{0.4pt} \\
+	%%%%%%%%%%%%%%%%%%%
+	%Abstract / Kurzzusammenfassung
+	%%%%%%%%%%%%%%%%%%%
+	%\include{chapters/zusammenfassung}
 	
-	Ort, Datum Unterschrift \rule{6cm}{0.4pt} \\
+	%%%%%%%%%%%%%%%%%%%
+	%Inhaltsverzeichnis 
+	%%%%%%%%%%%%%%%%%%%
+	\cleardoublepage
+	\tableofcontents % Erstellte ein Inhaltsverzeichnis
 	
-	\section{Abstract}
-	\section{Einführung}
-	\section{Hauptteil}
-	\subsection{Aufgabe 2.1}
-	\subsection{Aufgabe 2.2}
-	\subsection{Aufgabe 2.3}
-	\section{Schluss}
-	\section{Anhang}
+	%\cleardoublepage
+	\pagenumbering{arabic} % Seitenzahlen angezeigt, startet ab dem Inhaltsverzeichnis
+	\setcounter{page}{1} % Setzt den Seitenzahlenzähler auf 1
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	% INHALT, am Besten ausgelagert in eigene Files/Kapitel und dann mit \include{Unterordner/Filename} eingefügt, sorgt für bessere Übersichtlichkeit und Fehlersuche. Einzelne Dateien sind aktuell im Ordner Sections abgelegt. 
+	
+	
+	%%%%%%%%%%%%%%%%%%Haupteil%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%%%%%%%%%%%%%%%%%%%
+	%Abbildungs- und Tabellenverzeichnis
+	%%%%%%%%%%%%%%%%%%%
+	\listoffigures % Abbildungsverzeichnis (captions in den Figuren werden als Referenz genommen)
+	\listoftables % Verzeichnis der Tabellen (captions in den Tabellen werden als Referenz genommen)
+	
+	%%%%%%%%%%%%%%%%%%%
+	%Literaturverzeichnis an dieser Stelle
+	%%%%%%%%%%%%%%%%%%%
+	
 	
 \end{document}
