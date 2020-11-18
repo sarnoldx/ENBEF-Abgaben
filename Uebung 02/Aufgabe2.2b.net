@@ -1,8 +1,0 @@
-* C:\Users\simon\OneDrive\Desktop\Uni\ENBEF\Git\ENBEF Abgaben\Uebung 02\Aufgabe2.2b.asc
-R1 0 N001 2
-L1 N001 line 1.73007m
-C1 line 0 10µ
-.tran 0 25ms 0 uic
-.ic  V(line)=12
-.backanno
-.end
