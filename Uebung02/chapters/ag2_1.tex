@@ -1,12 +1,5 @@
-\documentclass{article}
-\usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
 
-\begin{document}
-	
-	\section{Harmonischer Oszillator, analytisch}
+	\section{Harmonischer Oszillator, analytisch}\label{sec:ag2.1}
 	% TODO: Oszillatorschaltung aus LTSpice einfügen
 	Für die vorliegende Schaltung wird angenommen, dass am Kondensator zum Zeitpunkt $t = 0$ eine Spannung $u_\mathrm{C}(0) = 12\,$V anliegt und der Strom durch den Reihenschwingkreis $i(0) = 0\,$A beträgt. Nach dem \textsc{Kirchhoff}'schen Gesetz ergibt sich die Maschengleichung für den Schwingkreis zu $u_\mathrm{C}(t) + u_\mathrm{R}(t) + u_\mathrm{L}(t) = 0$. Aus den Spannungen für den Widerstand $u_\mathrm{R}(t) = R \: i_\mathrm{R}(t)$, die Spule $u_\mathrm{L}(t) = L\: \frac{\mathrm{d}i_\mathrm{L}}{\mathrm{d}t}(t)$ und den Kondensator $u_\mathrm{C}(t) = \frac{1}{C} \int i_\mathrm{C}(t)dt $ ergibt sich daraus die Maschengleichung in Abhängigkeit des Stromes zu 
 	
@@ -50,7 +43,5 @@
 	Mit den eingebauten Bauelementen $L = 1.73007\:$mH, $R = 2\:\Omega$ und $C = 10 \: \mu $F kommt man auf eine gedämpfte Resonanzkreisfrequenz von $\omega_e = 7580.701\:\mathrm{s}^{-1}$ und eine Dämpfung von $\delta = 578.011\:\mathrm{s}^{-1}$.\newline
 	
 	Um eine eindeutige Lösung für eine lineare gewöhnliche Differentialgleichung $n$-ter Ordnung zu ermitteln sind auch $n$ Anfangsbedingungen nötig da auch $n$ Integrationen nötig sind um die Differentialgleichung zu lösen und somit auch $n$ Integrationskonstanten bestimmt werden müssen.
-	
-	
-\end{document}
+
 
