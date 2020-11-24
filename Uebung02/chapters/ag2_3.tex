@@ -1,2 +1,61 @@
 \section{Aufgabe 2.3}\label{sec:ag2.3}
-Das ist eine section
+Um die Schaltung nummerisch in Octave zu simulieren, wurde das Problem in 3 einzelne Methoden unterteilt:
+
+	Methode \texttt{circuit\_matrices} berechnet alle Matrizen, die für die modifizierte Knotenanalyse benötigt werden. Rückgabewerte sind die Matrizen $\mathbf{A_C, A_L, A_R, A_V, A_I, C, L, G}$ sowie die Vektoren $\mathbf{v}$ und $\mathbf{i}$. Hierbei stellen die Variablen $\mathbf{A}$ so genannte Inzidenzmatrizen dar, also Matrizen, die Auskunft über die Beziehungen der Knoten und Kanten eines Graphen geben. In diesem Fall wird für jeden Typ Bauteil (Kondensator $C$, Spule $L$, Widerstand $R$, Spannungsquelle $V$ und Stromquelle $I$) eine Matrix erstellt, deren Einträge folgender Eigenschaft genügen:
+	\begin{equation}
+	a_{ij} = \begin{cases}
+	+1 & \text{falls Zweig }j \text{ mit Bauteil von Knoten }i \text{ weg führt} \\
+	-1 & \text{falls Zweig }j \text{ mit Bauteil zu Knoten }i \text{ hin führt} \\
+	0  & \text{sonst}
+	\end{cases}
+	\end{equation}
+	$\mathbf{C, L}$ und $\mathbf{G}$ stellen Diagonalmatrizen dar, die die Zahlenwerte der Bauteile enthalten (Induktivitäten in
+	Henry, Kapazitäten in Farad, Leitfähigkeiten in Siemens). Zuletzt gibt die Methode die Vektoren $\mathbf{v}$ und $\mathbf{i}$, die konstante Ströme oder Spannungen der Quelle enthalten.
+	
+
+	Methode \texttt{calculate\_matrices} setzt die zuvor berechneten Matrizen zu größeren Matrizen zusammen, die die Differenzialgleichung
+	\begin{equation}
+	\mathbf{M} \frac{\text{d}}{\text{d}t} \mathbf{x} + \mathbf{K} \mathbf{x} = \mathbf{r}
+	\label{eq:matrixDGL}
+	\end{equation}
+	beschreiben. Rückgabewerte sind die Matrizen $\mathbf{M, K}$ und der Spaltenvektor $\mathbf{r}$, die sich nach folgender Rechenvorschrift ergeben:
+	\begin{equation}
+	\underbrace{
+		\begin{bmatrix}
+			\mathbf{A_C C A_C^T} & \mathbf{0} & \mathbf{0}\\
+			\mathbf{0} & \mathbf{L} & \mathbf{0}\\
+			\mathbf{0} & \mathbf{0} & \mathbf{0}
+		\end{bmatrix}
+	}_{\coloneqq \mathbf{M}}
+	\frac{\text{d}}{\text{d}t}
+	\begin{bmatrix}
+		\boldsymbol{\varphi}\\
+		\mathbf{i_L}\\
+		\mathbf{i_L}
+	\end{bmatrix}
+	+
+	\underbrace{
+		\begin{bmatrix}
+		\mathbf{A_R G A_R^T} & \mathbf{A_L} & \mathbf{A_V}\\
+		-\mathbf{A_L^T} & \mathbf{L} & \mathbf{0}\\
+		-\mathbf{A_V^T} & \mathbf{0} & \mathbf{0}
+		\end{bmatrix}
+	}_{\coloneqq \mathbf{K}}
+	\begin{bmatrix}
+	\boldsymbol{\varphi}\\
+	\mathbf{i_L}\\
+	\mathbf{i_L}
+	\end{bmatrix}
+	=
+	\underbrace{
+		\begin{bmatrix}
+			-\mathbf{A_I i_S}\\
+			\mathbf{0}\\
+			-\mathbf{v_S}
+		\end{bmatrix}
+	}_{\coloneqq \mathbf{r}}
+	\end{equation}
+	
+	Methode \texttt{FinalesSkript} löst nun die in \ref{eq:matrixDGL} beschriebene Differenzialgleichung auf nummerischen Weg. Dazu wird eine bereits in OCTAVE implementierte Methode namens \texttt{dassl} verwendet. Diese bekommt den Term der Form $\mathbf{M} \frac{\text{d}}{\text{d}t} \mathbf{x} + \mathbf{K} \mathbf{x} - \mathbf{r}$ übergeben. Ebenso benötigt die Funktion die Anfangswerte $\mathbf{x_0}$ und $\mathbf{\dot{x}_0}$ sowie einen Vektor $\mathbf{t}$ mit Zeitpunkten, für die die Lösung berechnet werden sollen.
+
+	Durch nummerische Annäherungsverfahren bestimmt die Methode den gesuchten Vektor $\mathbf{x}$ zum Zeitpunkt $t$. Durch einzeichnen der verschiedenen Lösungen mithilfe der Methode \texttt{plot}, lässt sich der zeitliche Verlauf des Systems betrachten: 
