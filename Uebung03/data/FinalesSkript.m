@@ -35,13 +35,13 @@ x0(2) = U_q
 % i_V'   = -48000
 x0_Strich = zeros(size(r));
 x0_Strich(2) = -R1*U_q/L1;
-x0_Strich(4) = 0;
+x0_Strich(4) = U_q/L1;
 x0_Strich(5) = -U_q/L1
 
 
 % Nummerische Berechnung des Gleichungssystems:
 % x = dassl(res, transpose(x0), zeros(size(r)), t);
-x = dassl(res,x0,x0_Strich,t);
+x = daspk(res,x0,x0_Strich,t);
 
 % Erstellen des Plots:
 plot(t,x(:,1:5));
