@@ -114,27 +114,30 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 	%%%%%%%%%%%%%%%%%%%
 	%Abstract / Kurzzusammenfassung
 	%%%%%%%%%%%%%%%%%%%
+	
 	%\include{chapters/zusammenfassung}
 	
 	%%%%%%%%%%%%%%%%%%%
 	%Inhaltsverzeichnis 
 	%%%%%%%%%%%%%%%%%%%
-	\cleardoublepage
+	%\cleardoublepage
 	\tableofcontents % Erstellte ein Inhaltsverzeichnis
 	
 	%\cleardoublepage
 	\pagenumbering{arabic} % Seitenzahlen angezeigt, startet ab dem Inhaltsverzeichnis
 	\setcounter{page}{1} % Setzt den Seitenzahlenzähler auf 1
-	
+	\include{chapters/intro} 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	% INHALT, am Besten ausgelagert in eigene Files/Kapitel und dann mit \include{Unterordner/Filename} eingefügt, sorgt für bessere Übersichtlichkeit und Fehlersuche. Einzelne Dateien sind aktuell im Ordner Sections abgelegt. 
 	
 	
 	%%%%%%%%%%%%%%%%%%Haupteil%%%%%%%%%%%%%%%%%%%
+	
 	\include{chapters/ag2_1}
 	\include{chapters/ag2_2}
 	\include{chapters/ag2_3}
+	\include{chapters/fazit}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -144,7 +147,7 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 	%%%%%%%%%%%%%%%%%%%
 	\include{chapters/anhang}
 	\listoffigures % Abbildungsverzeichnis (captions in den Figuren werden als Referenz genommen)
-	\listoftables % Verzeichnis der Tabellen (captions in den Tabellen werden als Referenz genommen)
+	%\listoftables % Verzeichnis der Tabellen (captions in den Tabellen werden als Referenz genommen)
 	
 	%%%%%%%%%%%%%%%%%%%
 	%Literaturverzeichnis an dieser Stelle
