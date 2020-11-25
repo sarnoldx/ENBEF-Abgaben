@@ -54,7 +54,7 @@ function [AC,AL,AR,AV,AI,C,L,R,V,I] = circuit_matrices(filename)
       
       is_voltage_or_current = typ == 'V' || typ == 'I';
       
-      matrix = [matrix,sparse(n,1)]
+      matrix = [matrix,sparse(n,1)];
       %Diagonalmatrix Elemente einf�gen
       
       if is_voltage_or_current == false
