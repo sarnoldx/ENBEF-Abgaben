@@ -6,17 +6,16 @@ function C = femmbuilder (a, h)
  
   openfemm;
   newdocument(1);
-  showconsole;
   ei_probdef('centimeters','planar',1.E-8,a,30);
   ei_addmaterial('Vakuum',1,1,0);
   %ei_addboundprop('Randbedingung','Vs',0,0,0,0);
   ei_addconductorprop('Linker Rand',1,0,1);
   ei_addconductorprop('Rechter Rand',0,0,1);
   
-  %Randpunkte für den Kondensator erstellen
+  %Randpunkte fuer den Kondensator erstellen
   ei_drawrectangle(0,0,h,a);
   
-  %Punkt für Materialproperty setzen
+  %Punkt fuer Materialproperty setzen
   ei_addblocklabel(h/2,a/2);
   
   %Linken und rechten Rand setzen
@@ -45,7 +44,7 @@ function C = femmbuilder (a, h)
   ei_analyze(0);
   ei_loadsolution;
   
-  %Liegenden Vektor erstellen, Ladung / Spannung ergibt Kapazität C
+  %Liegenden Vektor erstellen, Ladung / Spannung ergibt Kapazit\"at C
   G = [0,0];
   G = eo_getconductorproperties('Linker Rand');
   C = G(1,2)/G(1,1);
