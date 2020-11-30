@@ -48,6 +48,7 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 \usepackage{mathtools} % erweiterte Fassung von amsmath
 \usepackage{amssymb}   % erweiterter Zeichensatz
 \usepackage[decimalsymbol=comma]{siunitx}   % Einheiten
+\usepackage{amsmath}
 
 
 %%%%%%%%%%%%%%%%%
@@ -87,7 +88,7 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 \usepackage{blindtext} % Package für Blindtext
 
 \begin{document}
-	\title{Ausarbeitung Übung 2}
+	\title{Ausarbeitung Übung 3}
 	%\subtitle{Ein Untertitel, wenn nötig}
 	\author[D. Schiller, C. Kramer, S.Arnold, T. Lingenberg]{Dominik Schiller \and Constanze Kramer \and Simon Arnold \and Tobias Lingenberg} %optionales Argument ist die Signatur,
 	%\reviewer{Gutachter 1 \and Gutachterin 2} %Gutachten
@@ -125,17 +126,18 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 	%\cleardoublepage
 	\pagenumbering{arabic} % Seitenzahlen angezeigt, startet ab dem Inhaltsverzeichnis
 	\setcounter{page}{1} % Setzt den Seitenzahlenzähler auf 1
-	
+	\include{chapters/intro} 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	% INHALT, am Besten ausgelagert in eigene Files/Kapitel und dann mit \include{Unterordner/Filename} eingefügt, sorgt für bessere Übersichtlichkeit und Fehlersuche. Einzelne Dateien sind aktuell im Ordner Sections abgelegt. 
 	%%%%%%%%%%%%%%%%%%Einleitung%%%%%%%%%%%%%%%%%
 	
 	%%%%%%%%%%%%%%%%%%Haupteil%%%%%%%%%%%%%%%%%%%
+	\include{chapters/ag3_2}
 	\include{chapters/ag3_3}
 	
 	%%%%%%%%%%%%%%%%%%Fazit%%%%%%%%%%%%%%%%%%%%%%
-	
+	\include{chapters/fazit}
 	%%%%%%%%%%%%%%%%%%Anhang%%%%%%%%%%%%%%%%%%%%%
 	\include{chapters/anhang}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
