@@ -1,8 +1,0 @@
-* C:\Uni\3. Semester\ENBEF\Uebungen\ENBEF-Abgaben\Uebung03\data\Beispielschaltung2.asc
-V1 N001 0 0 AC 1
-R1 N002 0 100
-L1 N002 N001 1m
-* Ausgang
-.ac oct 10 100 1Meg
-.backanno
-.end
