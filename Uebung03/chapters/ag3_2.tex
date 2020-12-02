@@ -62,9 +62,10 @@ Somit ist die Lösung für (\ref{Ansatz})
 
 und mit ausmultiplizieren und aufteilen in gedämpften Anteil abhängig vom Startwert $x_0$ und sinus-förmiger Schwingung erfüllt
 
-\begin{equation*}
+\begin{equation}
 	x(t) = \mathrm{e}^{-k(t-t_0)}\left(x_0-\frac{\omega \mathrm{sin}(\omega t_0)+k\mathrm{cos}(\omega t_0)}{\omega^2+k^2}\right)+\frac{\omega \mathrm{sin}(\omega t)+k\mathrm{cos}(\omega t)}{\omega^2+k^2}.
-\end{equation*}
+	\label{allgemeineLösung}
+\end{equation}
 
 die Differentialgleichung (\ref{DGL}) im Zeitbereich.\\
 
@@ -100,11 +101,57 @@ und somit muss $j\omega \underline{x} + k\underline{x} - 1 = 0$ gelten. Nach $\u
 
 Setzt man dass alles zusammen und nutzt außerdme noch die Umformung der Exponentialfunktion $\mathrm{e}^{j\omega t} = \mathrm{cos}(\omega t) + j\mathrm{sin}(\omega t)$ lautet die Lösung für (\ref{DGL}) im Frequenzbereich
 
-\begin{equation*}
+\begin{equation}
 	x_{freq} (t) = \frac{k\mathrm{cos}(\omega t) + \omega\mathrm{sin}()\omega t}{k^2+ \omega^2}.
+	\label{lsgfreq}
+\end{equation}
+
+Zwar vernachlässigt man mit dem Ansatz der Lösung im Frequenzbereich das transiente Anfangsverhalten, aber die Lösung ist deutlich leichter und weniger zeitaufwändig zu ermitteln als der Ansatz zur Lösung im Zeitbereich, da man nur einmal eine sehr einfache Ableitung berechnen muss.\\
+
+
+Bei der \texttt{Beispielschaltung2.asc} handelt es sich um eine AC-Simulation aus der man das Verhalten der Schaltung in Abhängigkeit von verschiedenen Frequenzen, in diesem Fall von $f=\SI{100}{\hertz}$ bis $f=\SI{1}{\mega\hertz}$ ablesen kann. 
+
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{data/spiceplot32}
+	\caption{AC-Simulation aus LT-Spice}
+	\label{spiceplot}
+\end{figure}
+
+Die Schaltung lässt sich durch die Differentialgleichung
+
+\begin{equation*}
+	\frac{\mathrm{d}}{\mathrm{d}t}i(t) = -\frac{R}{L}i(t) +\frac{1}{L}u_i(t)
+	\label{spezielleDGL}
 \end{equation*}
 
-Zwar vernachlässigt man mit dem Ansatz der Lösung im Frequenzbereich das transiente Anfangsverhalten, aber die Lösung ist deutlich leichter und weniger zeitaufwändig zu ermitteln als der Ansatz zur Lösung im Zeitbereich, da man nur einmal eine sehr einfache Ableitung berechnen muss.
+beschreiben wobei $R$ der Widerstand, $L$ die Induktivität, $i(t)$ der Strom und $u_i(t)=\mathrm{cos}(\omega t)$ die anregende Spannung ist. Die Lösung für diese Differentialgleichung im Zeitbereich lässt sich mit Hilfe von (\ref{allgemeineLösung}) ermitteln. Hierfür setzt man für $x(t) = i(t)$, $k=\frac{R}{L}$ und für $r(t) = \frac{1}{L}\mathrm{cos}(\omega t)$ ein. Erweitert man im selben Schritt auch noch die Brüche mit $\frac{L}{L}$ so folgt daraus als Lösung für (\ref{spezielleDGL})
+
+\begin{equation*}
+	i(t) = \mathrm{e}^{-\frac{R}{L}(t-t_0)}\left(x_0-\frac{L\omega \mathrm{sin}(\omega t_0)+R\mathrm{cos}(\omega t_0)}{L^2\omega^2+k^2}\right)+\frac{L\omega \mathrm{sin}(\omega t)+R\mathrm{cos}(\omega t)}{L^2\omega^2+k^2}.
+\end{equation*}
+
+Analog ergibt sich die Lösung im Frequenzbereich durch einsetzen in (\ref{lsgfreq}) mit
+
+\begin{equation*}
+	i_{freq} (t) = \frac{R\mathrm{cos}(\omega t) + L\omega\mathrm{sin}(\omega t)}{R^2+ L^2\omega^2}.
+\end{equation*}
+
+Die Spannung über dem Widerstand lautet dann nach dem allgemeinen Ohm'schen Gesetz $U=R\cdot I$ und mit der Frequenz $f=\frac{\omega}{2\pi}$
+
+\begin{equation*}
+u_{R} (t) = \frac{R\mathrm{cos}(2\pi ft) + 2\pi fL\mathrm{sin}(2\pi ft)}{R^2+ (2\pi fL)^2}R.
+\end{equation*}
+
+Das Schaubild für diese Funktion sieht man in Abbildung \ref{spannungplot}.
+
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{data/nocheinversuch.jpg}
+	\caption{MATLBA-Plot der Spannung über dem Widerstand R}
+	\label{spannungplot}
+\end{figure}
+
+Anhand des Frequenzgangs fällt auf dass es sich um eine Schaltung mit Tiefpass-Verhalten handelt, denn bei niedrigen Frequenzen bis ca. $\SI{10}{\kilo\hertz}$ ist die Ausgangsspannung genauso groß wie die Eingangsspannung, und bei hohen Frequenzen nahe $\SI{1}{\mega \hertz}$ ist die Ausgangsspannung deutlich niedriger als die Eingangsspannung.
+
 
 
 
