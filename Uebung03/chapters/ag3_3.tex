@@ -1,7 +1,7 @@
 \section{Simulation homogener Plattenkondensator}\label{sec:ag3_3}
 In dieser Aufgabe wird ein harmonischer Plattenkondensator in dem Simulationsprogramm \glqq FEMM \grqq{} nachgebaut. FEMM steht kostenfrei zur Verfügung und kann in Octave eingebunden werden.\\
 Zunächst soll der Einfluss unterschiedlicher Randbedingungen auf das elektrische Feld eines Kondensators betrachtet werden. \\
-Ein Kondensator ist eine Anordnung von zwei beliebigen Elektroden, die durch ein Dielektrikum von einander getrennt sind und die gleiche Ladung, aber mit unterschiedlicher Polarität in sich tragen, die Kapazität lässt sich mit $ C = \epsilon_{0}\epsilon_{r}\frac{A}{d}$ berechnen, wobei $A$ die Fläche der Platten, $d$ den Abstand der Platten, $\epsilon_{0}$ die elektrische Feldkonstante und $\epsilon_{r}$ die relative Permittivität des Dielektrikums beschreibt. Außerdem kann die Formel $C = \frac{Q}{U}$ zur Berechnung der Kapazität benutzt werden, $Q$ ist die Ladung in \si{\coulomb} und $U$ die Spannung in \SI{}{\volt}. \\ \\
+Ein Kondensator ist eine Anordnung von zwei beliebigen Elektroden, die durch ein Dielektrikum von einander getrennt sind und die gleiche Ladung, aber mit unterschiedlicher Polarität in sich tragen, die Kapazität lässt sich mit $ C = \epsilon_{0}\epsilon_{r}\frac{A}{d}$ berechnen, wobei $A$ die Fläche der Platten, $d$ den Abstand der Platten, $\epsilon_{0}$ die elektrische Feldkonstante und $\epsilon_{r}$ die relative Permittivität des Dielektrikums beschreibt. Außerdem kann die Formel $C = \frac{Q}{U}$ zur Berechnung der Kapazität benutzt werden, $Q$ ist die Ladung in \si{\farad} und $U$ die Spannung in \SI{}{\volt}. \\ \\
 Zum Bau des Kondensators werden in FEMM vier Punkte gesetzt und diese zu Linien verbunden. Der Abstand der Punkte beträgt sowohl in x-, als auch in y-Richtung \SI{30}{\centi\meter}. Genau genommen wird ein Quader erstellt, da die Kondensatorplatten quadratisch sein sollen, hat der Quader eine Tiefe von \SI{30}{\centi\meter}, jedoch verfügt FEMM nur eine 2-Dimensionale graphische Darstellung.\\
  Die linke und rechte Linie in Abbildung \ref{fig:kleinRand} stellen die beiden Kondensatorplatten dar, die obere und untere Linie dienen zur Berandung des elektrischen Felds. An der linken Platte des Kondensators liegt eine Spannung von \SI{1}{\volt} an, an der rechten Seite eine Spannung von \SI{0}{\volt}. Des Weiteren wurde in Abbildung \ref{fig:KäfigRand} ein Kondensator betrachtet, der nicht direkt, sondern durch einen äußeren Käfig berandet wird. Die inneren Linien markieren die beiden Kondensatorplatten, hier liegen die selben Spannungen wie im Vergleichsbild an.
 \begin{figure}[h]
@@ -23,7 +23,7 @@ Zum Bau des Kondensators werden in FEMM vier Punkte gesetzt und diese zu Linien 
 	\caption{Aufbau und Feldlinien des Kondensators}
 \end{figure}
 
-Vergleich man nun den Plot \ref{fig:kleinRand} mit \ref{fig:KäfigRand}, so wird eindeutig, dass die Feldlinien in Abbildung \ref{fig:kleinRand} senkrecht zu den beiden Flächen stehen. Berandet man den Kondensator durch einen Käfig, so werden auch die nicht senkrecht verlaufenden Feldlinien beachtet. In beiden Fällen entsteht ein homogenes Feld. Auch bei der Kapazität lassen sich unterschiedliche Werte ablesen. Während der Kondensator \ref{fig:kleinRand} eine Kapazität von \SI{2,6562}{\pico\coulomb} hat, liegt die Kapazität von Kondensator \ref{fig:KäfigRand} bei \SI{3,9773}{\pico\coulomb} \newpage
+Vergleich man nun den Plot \ref{fig:kleinRand} mit \ref{fig:KäfigRand}, so wird eindeutig, dass die Feldlinien in Abbildung \ref{fig:kleinRand} senkrecht zu den beiden Flächen stehen. Berandet man den Kondensator durch einen Käfig, so werden auch die nicht senkrecht verlaufenden Feldlinien beachtet. In beiden Fällen entsteht ein homogenes Feld. Auch bei der Kapazität lassen sich unterschiedliche Werte ablesen. Während der Kondensator \ref{fig:kleinRand} eine Kapazität von \SI{2,6562}{\pico\farad} hat, liegt die Kapazität von Kondensator \ref{fig:KäfigRand} bei \SI{3,9773}{\pico\farad} \newpage
 Zusätzlich soll verglichen werden, wie sich verschiedene Randbedingungen auf das entstehende elektrische Feld auswirken. Hierzu wurden dem Rand verschiedene Werte zugewiesen. Zunächst in Abbildung \ref{fig:0V} eine Spannung von \SI{0}{\volt}, dann in Abbildung \ref{fig:0,5V} \SI{0,5}{\volt} und schließlich eine Spannung von \SI{1}{\volt} in Abbildung \ref{fig:1V}. Es gilt die Selbe Skala, die in \ref{fig:Skala} zu sehen ist.
 
 \begin{figure}[h]
@@ -53,9 +53,9 @@ Da nun unterschiedliche Randbedingungen herrschen, entstehen auch Feldlinien zwi
 	\begin{tabular}[h]{c|c c}
 		Spannung am Rand & Kapazität linke Kondensatorplatte & Kapazität rechte Kondensatorplatte \\
 		\hline
-		\SI{0}{\volt} &  \SI{22,1405}{\pico\coulomb} & \SI{-0,5861}{\pico\coulomb} \\
-		\SI{0,5}{\volt} & \SI{11,3633}{\pico\coulomb} & \SI{-11,3633}{\pico\coulomb} \\
-		\SI{1}{\volt} &  \SI{0,5861}{\pico\coulomb} & \SI{-22,1405}{\pico\coulomb}
+		\SI{0}{\volt} &  \SI{22,1405}{\pico\farad} & \SI{-0,5861}{\pico\farad} \\
+		\SI{0,5}{\volt} & \SI{11,3633}{\pico\farad} & \SI{-11,3633}{\pico\farad} \\
+		\SI{1}{\volt} &  \SI{0,5861}{\pico\farad} & \SI{-22,1405}{\pico\farad}
 	\end{tabular}
 \end{table}
 \vspace*{1.5cm}

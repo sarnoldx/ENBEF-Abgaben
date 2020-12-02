@@ -133,12 +133,12 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 	%\cleardoublepage
 	\pagenumbering{arabic} % Seitenzahlen angezeigt, startet ab dem Inhaltsverzeichnis
 	\setcounter{page}{1} % Setzt den Seitenzahlenzähler auf 1
-	\include{chapters/intro} 
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	% INHALT, am Besten ausgelagert in eigene Files/Kapitel und dann mit \include{Unterordner/Filename} eingefügt, sorgt für bessere Übersichtlichkeit und Fehlersuche. Einzelne Dateien sind aktuell im Ordner Sections abgelegt. 
 	%%%%%%%%%%%%%%%%%%Einleitung%%%%%%%%%%%%%%%%%
-	
+	\include{chapters/intro} 
 	%%%%%%%%%%%%%%%%%%Haupteil%%%%%%%%%%%%%%%%%%%
 	\include{chapters/ag3_1}
 	\include{chapters/ag3_2}
