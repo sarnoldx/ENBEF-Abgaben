@@ -3,7 +3,7 @@ t = [0:1e-8:1e-3];
 % Bestimmung des Gleichungssystems:
 [M,K,r] = calculate_matrices('koaxialKabel.net');
 
-% !!!!! r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet
+% r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet, diese Korrektur führt nun zum richtigen Ergebnis
 r(5) = -r(5);
 
 %res = @(y, yd,t) (M*yd+K*y-r);
@@ -28,23 +28,13 @@ x0(1) = U_q;
 x0(2) = U_q
 
 % x0_Strich: 
-% phi_1' = 0
-% phi_2' = -48
-% phi_3' = 0
-% i_L'   = 48000
-% i_V'   = -48000
 x0_Strich = zeros(size(r));
-x0_Strich(2) = -R1*U_q/L1;
-x0_Strich(4) = U_q/L1;
-x0_Strich(5) = -U_q/L1
-
 
 % Nummerische Berechnung des Gleichungssystems:
-% x = dassl(res, transpose(x0), zeros(size(r)), t);
 x = daspk(res,x0,x0_Strich,t);
 
 % Erstellen des Plots:
-plot(t,x(:,1:5));
+plot(t,x(:,3:3));
 xlabel('Zeit t in [s]', 'interpreter', 'tex')
-ylabel('Strom in [A], Spannung in [V]', 'interpreter', 'tex')
-legend('\phi_1', '\phi_2', '\phi_3', 'i_L', 'i_V')
+ylabel('Spannung in [V]', 'interpreter', 'tex')
+legend('\phi_3 entspricht Spannung an Rf')
