@@ -1,9 +1,9 @@
-t = [0:1e-8:1e-3];
+t = [0:1e-8:2e-3];
 
 % Bestimmung des Gleichungssystems:
 [M,K,r] = calculate_matrices('koaxialKabel.net');
 
-% !!!!! r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet
+%r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet
 r(5) = -r(5);
 
 %res = @(y, yd,t) (M*yd+K*y-r);
@@ -28,16 +28,7 @@ x0(1) = U_q;
 x0(2) = U_q
 
 % x0_Strich: 
-% phi_1' = 0
-% phi_2' = -48
-% phi_3' = 0
-% i_L'   = 48000
-% i_V'   = -48000
 x0_Strich = zeros(size(r));
-x0_Strich(2) = -R1*U_q/L1;
-x0_Strich(4) = U_q/L1;
-x0_Strich(5) = -U_q/L1
-
 
 % Nummerische Berechnung des Gleichungssystems:
 % x = dassl(res, transpose(x0), zeros(size(r)), t);
@@ -45,11 +36,11 @@ x1 = daspk(res,x0,x0_Strich,t);
 
 
 %-----------------------------------------------
-% Bestimmung des Gleichungssystems mit 10:
+% Bestimmung des Gleichungssystems mit 10 Segmenten:
 %-----------------------------------------------
 [M10,K10,r10] = calculate_matrices('KK10.net');
 
-% !!!!! r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet
+%Spannungsquelle wird wohl mit falschem Vorzeichen berechnet
 r10 = -r10;
 
 %res = @(y, yd,t) (M*yd+K*y-r);
@@ -80,14 +71,12 @@ x0_10_Strich = zeros(size(r10))
 % x = dassl(res, transpose(x0), zeros(size(r)), t);
 x10 = daspk(res10,x0_10,x0_10_Strich,t);
 
-
-
-
+%----------------------------------------------------
 % Erstellen des Plots:
 plot(t,x1(:,3:3));
 hold on;
 plot(t,x10(:,21:21));
 hold off;
 xlabel('Zeit t in [s]', 'interpreter', 'tex')
-ylabel('Strom in [A], Spannung in [V]', 'interpreter', 'tex')
-legend('Rf bei einem Segment', 'Rf bei 10 Segmenten')
+ylabel('Spannung in [V]', 'interpreter', 'tex')
+legend('Ausgangsspannung bei n=1', 'Ausgangsspannung bei n=10')
