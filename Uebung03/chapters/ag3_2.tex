@@ -1,36 +1,157 @@
 \section{Frequenzbereich}\label{sec:ag3_2}
-a)
-\begin{gather*}
-\alpha(t)=-kx(t)+cos(\omega t)\\
-x(t)=e{^-k(t-t_0)}(x_0)+\int_{t_0}^{t} e^{k(s-t_0)}cos(\omega s)ds\\
-f'=e^{k(s-t_0)}\\
-g=cos(\omega s)\\
-\end{gather*}
-partiell integrieren
-\begin{gather*}
-f=\frac{e^{k(s-t_0)}}{k}\\
-g'=-\omega sind(\omega s)\\
-(e^{-k(t-t_0)}x_0)+[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{s=t}_{s=t_0}-\int_{t_0}^{t}-\frac{\omega sin(\omega s)e^{k(s-t_0)}}{k}ds\\
-\end{gather*}
-partiell integrieren
-\begin{gather*}
-f'=\frac{e^{k(s-t_0)}}{k}\\
-g=-\omega sin(\omega s)\\
-f=\frac{e^{k(s-t_0)}}{k^2}\\
-g'=-\omega^2 sin(\omega s)\\
-\end{gather*}
-\begin{gather*}
-(e^{-k(t-t_0)}x_0)+[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}-(-[\frac{\omega^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\int_{t_0}^{t}-\frac{\omega^2 e^{k(s-t_0)}cos(\omega s)}{k^2}ds)\\
-(e^{-k(t-t_0)}x_0)+\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds=[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}-\frac{\omega^2}{h^2}\int_{t}^{s=t_0}e^{k(s-t_0)}cos(\omega s)ds\\
-\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds+\frac{\omega^2}{k^2}\int_{t}^{t_0}e^{k(s-t_0)}cos(\omega s)ds=[\frac{e^{k(s-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\\
-\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds+(1+\frac{\omega^2}{h^2})=[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\\
-\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds+(\frac{k^2+\omega^2}{h^2})=[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\\
-\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds=([\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0})*(\frac{k^2+\omega^2}{h^2})\\
-=[\frac{ke^{k(t-t_0)}cos(\omega s)+\omega e^{k(s-t_0)}sin(\omega s)}{\omega^2+k^2}]^{t}_{s=t_0}\\
-=\frac{[e^{k(t-t_0)}cos(\omega s)+\omega e^{k(s-t_0)}sin(\omega s)]^{t}_{s=t_0}}{\omega^2+k^2}\\
-e^{-kt+kt_0}=\frac{e^{kt_0}}{e^{kt}}\\
-=\frac{\omega e^{kt}sin(\omega t)+ke^{kt}cos(\omega t)}{e^{kt_0}(\omega^2+k^2)}-\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)}\\
-x(t)=e^{-k(t-t_0)}(x_0+\frac{\omega e^{kt}sin(\omega t)+ke^{kt}cos(\omega t)}{e^{kt_0}(\omega^2+k^2)}-\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)})\\
-=\frac{\omega sin(\omega t)+kcos(\omega t)}{(\omega^2+k^2)}-e^{-k(t-t_0)}(\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)}-x_0)\\
-=e^{-k(t-7_0)}(x_0-\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)})+\frac{\omega sin(\omega t)+kcos(\omega t)}{(\omega^2+k^2)}
-\end{gather*}
+
+In der Elektrotechnik arbeitet man oft an Problemen mit sinus-förmigen Schwingungen. Um die Rechnungen dafür zu vereinfachen bietet es sich an diese Probleme nur im Frequenzbereich zu betrachten. 
+Im folgenden wird allerdings zuerst eine Lösung für die skalare lineare gewöhnliche Differentialgleichung im Zeitbereich 
+
+\begin{equation}
+	x'(t) = f(t,x) := -kx(t) +r(t)
+	\label{DGL}
+\end{equation}
+
+mit Startwert $x(t_0) = x_0$ und $k > 0$ ermittelt. Die Anregung ist durch $r(t) = \mathrm{cos}(\omega t)$ als sinus-förmige Schwingung gegeben, wobei $\omega$ die Kreisfrequenz ist.
+Aus der vorgegebenen allgemeinen Lösung 
+
+\begin{equation}
+	x(t)=\mathrm{e}^{-k(t-t_0)} \left(x_0+\int_{t_0}^{t} \mathrm{e}^{k(s-t_0)}r(s)ds\right)
+	\label{Ansatz}
+\end{equation} 
+
+betrachtet man vorerst nur das Integral und wird dieses lösen.\\
+Mit der partiellen Integrationsregel 
+
+\begin{equation*}
+	\int_{a}^{b}f'(x) \cdot g(x)dx = \left[f(x) \cdot g(x)\right]^{b}_{a} - \int_{a}^{b} f(x) \cdot g'(x)dx
+\end{equation*}
+
+setzt man nun $f'(x)=\mathrm{e}^{k(s-t_0)}$ und $g(x)=\mathrm{cos}(\omega s)$ erhält man $f(x)=\frac{1}{k}\mathrm{e}^{k(s-t_0)}$ sowie $g'(x)=-\omega \mathrm{sin}(\omega s)$ und eingesetzt ergibt das 
+
+\begin{equation*}
+	\int_{t_0}^{t} \mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)ds = \left[ \frac{\mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)}{k} \right]^{t}_{s=t_0}-\int_{t_0}^{t}-\frac{\omega \mathrm{sin}(\omega s)\mathrm{e}^{k(s-t_0)}}{k} ds.
+\end{equation*}
+
+Nun wird erneut partiell integriert, diesmal unter der Annahme $f'(x)=\frac{\mathrm{e}^{k(s-t_0)}}{k}$, $g(x)=-\omega \mathrm{sin}(\omega s)$ und daraus folgend $f(x)=\frac{\mathrm{e}^{k(s-t_0)}}{k^2}$ und $g'(x)=-\omega^2 \mathrm{sin}(\omega s)$. Die Lösung für das Integral sieht nun 
+
+\begin{equation*}
+	\int_{t_0}^{t} \mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)ds = \left[\frac{\mathrm{e}^{k(s-t_0)} \mathrm{cos}(\omega s)}{k}\right]^{t}_{s=t_0}-\left(-\left[\frac{\omega \mathrm{e}^{k(s-t_0)}\mathrm{sin}(\omega s)}{k^2}\right]^{t}_{s=t_0}-\int_{t_0}^{t}-\frac{\omega^2 \mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)}{k^2}ds\right)
+\end{equation*} 
+
+so aus. Weiter vereinfachen führt zu 
+
+\begin{equation*}
+	\int_{t_0}^{t}\mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)ds = \left[\frac{\mathrm{e}^{k(s-t_0)} \mathrm{cos}(\omega s)}{k}\right]^{t}_{s=t_0} +\left[\frac{\omega\mathrm{e}^{k(s-t_0)} \mathrm{sin}(\omega s)}{k^2}\right]^{t}_{s=t_0}-\frac{\omega^2}{k^2} \int_{s=t_0}^{t}\mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)ds.
+\end{equation*}
+	
+Nun findet man Ausgangsintegral auch auf der rechten Seite der Gleichung wieder, weshalb man diese beiden Integrale nun auf einer Seite zusammenfassen kann wie folgt:
+
+\begin{equation*}
+	\int_{t_0}^{t}\mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)ds \cdot \left(\frac{k^2+\omega^2}{k^2}\right) = \left[\frac{\mathrm{e}^{k(s-t_0)} \mathrm{cos}(\omega s)}{k}\right]^{t}_{s=t_0}+\left[\frac{\omega \mathrm{e}^{k(s-t_0)} \mathrm{sin}(\omega s)}{k^2}\right]^{t}_{s=t_0}
+\end{equation*}
+
+Teilt man nun noch durch $\frac{k^2+\omega^2}{k^2}$ und setzt die Integrationsgrenzen ein erhält man mit 
+
+\begin{equation*}
+	\int_{t_0}^{t}\mathrm{e}^{k(s-t_0)}\mathrm{cos}(\omega s)ds = 
+	\frac{\omega \mathrm{e}^{kt}\mathrm{sin}(\omega t)+k\mathrm{e}^{kt}\mathrm{cos}(\omega t)}{\mathrm{e}^{kt_0}(\omega^2+k^2)}-\frac{\omega \mathrm{sin}(\omega t_0)+k\mathrm{cos}(\omega t_0)}{\omega^2+k^2}.
+\end{equation*}
+
+Somit ist die Lösung für (\ref{Ansatz})
+
+\begin{equation*}
+	x(t)=\mathrm{e}^{-k(t-t_0)} \left(x_0+\frac{\omega \mathrm{e}^{kt}\mathrm{sin}(\omega t)+k\mathrm{e}^{kt}\mathrm{cos}(\omega t)}{\mathrm{e}^{kt_0}(\omega^2+k^2)}-\frac{\omega \mathrm{sin}(\omega t_0)+k\mathrm{cos}(\omega t_0)}{\omega^2+k^2}\right)
+\end{equation*}
+
+und mit ausmultiplizieren und aufteilen in gedämpften Anteil abhängig vom Startwert $x_0$ und sinus-förmiger Schwingung erfüllt
+
+\begin{equation}
+	x(t) = \mathrm{e}^{-k(t-t_0)}\left(x_0-\frac{\omega \mathrm{sin}(\omega t_0)+k\mathrm{cos}(\omega t_0)}{\omega^2+k^2}\right)+\frac{\omega \mathrm{sin}(\omega t)+k\mathrm{cos}(\omega t)}{\omega^2+k^2}.
+	\label{allgemeineLösung}
+\end{equation}
+
+die Differentialgleichung (\ref{DGL}) im Zeitbereich.\\
+
+Nach der Berechnung der Differentialgleichung im Zeitbereich folgt nun die Betrachtung im Frequenzbereich. Hierbei wird die Lösung als Kosinus unbekannter Amplitude
+
+\begin{equation*}
+	x_{freq} (t) = \Re \left\{\underline{x}\mathrm{e}^{j\omega t}\right\}
+\end{equation*}
+
+angenommen, mit $\mathrm{cos}(\omega t) = \Re\left\{\mathrm{e}^{j\omega t}\right\}$ wobei $\underline{x}$ der Phasor ist. Die zeitliche Ableitung lautet dann 
+
+\begin{equation*}
+	x'_{freq}(t) = \Re \left\{j\omega \underline{x} \mathrm{e}^{j\omega t}\right\}
+\end{equation*}
+
+und einsetzen in (\ref{DGL}) liefert
+
+\begin{equation*}
+	\Re \left\{j\omega \underline{x} \mathrm{e}^{j\omega t}\right\} = -k\Re\left\{\underline{x}\mathrm{e}^{j\omega t}\right\} + \Re\left\{\mathrm{e}^{j\omega t}\right\}
+\end{equation*}
+
+Zieht man alles auf eine Seite und fasst die Realteile zusammen erhält man 
+
+\begin{equation*}
+	\Re \left\{(j\omega \underline{x} + k\underline{x} - 1)\mathrm{e}^{j\omega t}\right\} = 0
+\end{equation*}
+
+und somit muss $j\omega \underline{x} + k\underline{x} - 1 = 0$ gelten. Nach $\underline{x}$ aufgelöst gilt 
+
+\begin{equation*}
+	\underline{x} = \frac{k-j\omega}{k^2+\omega^2}.
+\end{equation*}
+
+Setzt man dass alles zusammen und nutzt außerdme noch die Umformung der Exponentialfunktion $\mathrm{e}^{j\omega t} = \mathrm{cos}(\omega t) + j\mathrm{sin}(\omega t)$ lautet die Lösung für (\ref{DGL}) im Frequenzbereich
+
+\begin{equation}
+	x_{freq} (t) = \frac{k\mathrm{cos}(\omega t) + \omega\mathrm{sin}()\omega t}{k^2+ \omega^2}.
+	\label{lsgfreq}
+\end{equation}
+
+Zwar vernachlässigt man mit dem Ansatz der Lösung im Frequenzbereich das transiente Anfangsverhalten, aber die Lösung ist deutlich leichter und weniger zeitaufwändig zu ermitteln als der Ansatz zur Lösung im Zeitbereich, da man nur einmal eine sehr einfache Ableitung berechnen muss.\\
+
+
+Bei der \texttt{Beispielschaltung2.asc} handelt es sich um eine AC-Simulation aus der man das Verhalten der Schaltung in Abhängigkeit von verschiedenen Frequenzen, in diesem Fall von $f=\SI{100}{\hertz}$ bis $f=\SI{1}{\mega\hertz}$ ablesen kann. 
+
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{data/spiceplot32}
+	\caption{AC-Simulation aus LT-Spice}
+	\label{spiceplot}
+\end{figure}
+
+Die Schaltung lässt sich durch die Differentialgleichung
+
+\begin{equation*}
+	\frac{\mathrm{d}}{\mathrm{d}t}i(t) = -\frac{R}{L}i(t) +\frac{1}{L}u_i(t)
+	\label{spezielleDGL}
+\end{equation*}
+
+beschreiben wobei $R$ der Widerstand, $L$ die Induktivität, $i(t)$ der Strom und $u_i(t)=\mathrm{cos}(\omega t)$ die anregende Spannung ist. Die Lösung für diese Differentialgleichung im Zeitbereich lässt sich mit Hilfe von (\ref{allgemeineLösung}) ermitteln. Hierfür setzt man für $x(t) = i(t)$, $k=\frac{R}{L}$ und für $r(t) = \frac{1}{L}\mathrm{cos}(\omega t)$ ein. Erweitert man im selben Schritt auch noch die Brüche mit $\frac{L}{L}$ so folgt daraus als Lösung für (\ref{spezielleDGL})
+
+\begin{equation*}
+	i(t) = \mathrm{e}^{-\frac{R}{L}(t-t_0)}\left(x_0-\frac{L\omega \mathrm{sin}(\omega t_0)+R\mathrm{cos}(\omega t_0)}{L^2\omega^2+k^2}\right)+\frac{L\omega \mathrm{sin}(\omega t)+R\mathrm{cos}(\omega t)}{L^2\omega^2+k^2}.
+\end{equation*}
+
+Analog ergibt sich die Lösung im Frequenzbereich durch einsetzen in (\ref{lsgfreq}) mit
+
+\begin{equation*}
+	i_{freq} (t) = \frac{R\mathrm{cos}(\omega t) + L\omega\mathrm{sin}(\omega t)}{R^2+ L^2\omega^2}.
+\end{equation*}
+
+Die Spannung über dem Widerstand lautet dann nach dem allgemeinen Ohm'schen Gesetz $U=R\cdot I$ und mit der Frequenz $f=\frac{\omega}{2\pi}$
+
+\begin{equation*}
+u_{R} (t) = \frac{R\mathrm{cos}(2\pi ft) + 2\pi fL\mathrm{sin}(2\pi ft)}{R^2+ (2\pi fL)^2}R.
+\end{equation*}
+
+Das Schaubild für diese Funktion sieht man in Abbildung \ref{spannungplot}.
+
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{data/nocheinversuch.jpg}
+	\caption{MATLBA-Plot der Spannung über dem Widerstand R}
+	\label{spannungplot}
+\end{figure}
+
+Anhand des Frequenzgangs fällt auf dass es sich um eine Schaltung mit Tiefpass-Verhalten handelt, denn bei niedrigen Frequenzen bis ca. $\SI{10}{\kilo\hertz}$ ist die Ausgangsspannung genauso groß wie die Eingangsspannung, und bei hohen Frequenzen nahe $\SI{1}{\mega \hertz}$ ist die Ausgangsspannung deutlich niedriger als die Eingangsspannung.
+
+
+
+
