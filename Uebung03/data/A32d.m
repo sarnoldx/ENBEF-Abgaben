@@ -8,6 +8,6 @@ figure;
 loglog(x,y);
 set(gca,'fontsize',20)
 xlabel 'Frequenz in Hz';
-ylabel ({'Verhältnis', 'Eingangsspannung zu' 'Ausgangsspannung in dB'});
+ylabel ({'Verhaeltnis', 'Eingangsspannung zu' 'Ausgangsspannung in dB'});
 
 
