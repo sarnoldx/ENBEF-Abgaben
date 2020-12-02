@@ -1,4 +1,55 @@
 \section{Frequenzbereich}\label{sec:ag3_2}
+<<<<<<< HEAD
+a)
+\begin{gather*}
+\alpha(t)=-kx(t)+cos(\omega t)\\
+x(t)=e{^-k(t-t_0)}(x_0)+\int_{t_0}^{t} e^{k(s-t_0)}cos(\omega s)ds\\
+f'=e^{k(s-t_0)}\\
+g=cos(\omega s)\\
+\end{gather*}
+partiell integrieren
+\begin{gather*}
+f=\frac{e^{k(s-t_0)}}{k}\\
+g'=-\omega sind(\omega s)\\
+(e^{-k(t-t_0)}x_0)+[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{s=t}_{s=t_0}-\int_{t_0}^{t}-\frac{\omega sin(\omega s)e^{k(s-t_0)}}{k}ds\\
+\end{gather*}
+partiell integrieren
+\begin{gather*}
+f'=\frac{e^{k(s-t_0)}}{k}\\
+g=-\omega sin(\omega s)\\
+f=\frac{e^{k(s-t_0)}}{k^2}\\
+g'=-\omega^2 sin(\omega s)\\
+\end{gather*}
+\begin{gather*}
+(e^{-k(t-t_0)}x_0)+[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}-(-[\frac{\omega^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\int_{t_0}^{t}-\frac{\omega^2 e^{k(s-t_0)}cos(\omega s)}{k^2}ds)\\
+(e^{-k(t-t_0)}x_0)+\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds=[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}-\frac{\omega^2}{h^2}\int_{t}^{s=t_0}e^{k(s-t_0)}cos(\omega s)ds\\
+\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds+\frac{\omega^2}{k^2}\int_{t}^{t_0}e^{k(s-t_0)}cos(\omega s)ds=[\frac{e^{k(s-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\\
+\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds+(1+\frac{\omega^2}{h^2})=[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\\
+\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds+(\frac{k^2+\omega^2}{h^2})=[\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0}\\
+\int_{t_0}^{t}e^{k(s-t_0)}cos(\omega s)ds=([\frac{e^{k(t-t_0)}cos(\omega s)}{k}]^{t}_{s=t_0}+[\frac{\omega e^{k(s-t_0)}sin(\omega s)}{k^2}]^{t}_{s=t_0})*(\frac{k^2+\omega^2}{h^2})\\
+=[\frac{ke^{k(t-t_0)}cos(\omega s)+\omega e^{k(s-t_0)}sin(\omega s)}{\omega^2+k^2}]^{t}_{s=t_0}\\
+=\frac{[e^{k(t-t_0)}cos(\omega s)+\omega e^{k(s-t_0)}sin(\omega s)]^{t}_{s=t_0}}{\omega^2+k^2}\\
+e^{-kt+kt_0}=\frac{e^{kt_0}}{e^{kt}}\\
+=\frac{\omega e^{kt}sin(\omega t)+ke^{kt}cos(\omega t)}{e^{kt_0}(\omega^2+k^2)}-\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)}\\
+x(t)=e^{-k(t-t_0)}(x_0+\frac{\omega e^{kt}sin(\omega t)+ke^{kt}cos(\omega t)}{e^{kt_0}(\omega^2+k^2)}-\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)})\\
+=\frac{\omega sin(\omega t)+kcos(\omega t)}{(\omega^2+k^2)}-e^{-k(t-t_0)}(\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)}-x_0)\\
+=e^{-k(t-7_0)}(x_0-\frac{\omega sin(\omega t_0)+kcos(\omega t_0)}{(\omega^2+k^2)})+\frac{\omega sin(\omega t)+kcos(\omega t)}{(\omega^2+k^2)}
+\end{gather*}
+b)
+\begin{gather*}
+x_{freq} (t)=Re\{\underline{\alpha} e^{j\omega t}\}\\
+x'_{freq} (t)=Re\{j \omega \underline{x} e^{j\omega t}\}\\
+Re\{j \omega \underline{x} e^{j\omega t}\}=-kRe\{\underline{x} e^{j\omega t}\}-Re\{ e^{j\omega t}\}\\
+Re\{j \omega \underline{x} e^{j\omega t}\}+kRe\{\underline{x} e^{j\omega t}\}+Re\{ e^{j\omega t}\}=0\\
+Re\{(j\omega \underline{x}+k\underline{x}-1)e^{j\omega t}\}=0\\
+j\omega\underline{x}+k\underline{x}=1=0\\
+\underline{x}=\frac{1}{k+j\omega}=\frac{k-j\omega}{k^2+\omega^2}\\
+(e^{j\omega t}=cos(\omega t)+j sin(\omega t))\\
+\Downarrow\\
+x_{freq}(t)=Re\{\frac{k-j\omega}{k^2+\omega^2}(cos(\omega t)+jsin(\omega t))\}\\
+=\frac{kcos(\omega t)+\omega sin(\omega t)}{k^2+\omega^2}
+\end{gather*}
+=======
 
 In der Elektrotechnik arbeitet man oft an Problemen mit sinus-förmigen Schwingungen. Um die Rechnungen dafür zu vereinfachen bietet es sich an diese Probleme nur im Frequenzbereich zu betrachten. 
 Im folgenden wird allerdings zuerst eine Lösung für die skalare lineare gewöhnliche Differentialgleichung im Zeitbereich 
@@ -158,3 +209,4 @@ Anhand des Frequenzgangs fällt auf, dass es sich um eine Schaltung mit Tiefpass
 
 
 
+>>>>>>> main
