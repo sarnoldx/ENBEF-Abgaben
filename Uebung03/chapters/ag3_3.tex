@@ -1,8 +1,8 @@
 \section{Simulation homogener Plattenkondensator}\label{sec:ag3_3}
 In dieser Aufgabe wird ein harmonischer Plattenkondensator in dem Simulationsprogramm \glqq FEMM \grqq{} nachgebaut. FEMM steht kostenfrei zur Verfügung und kann in Octave eingebunden werden.\\
 Zunächst soll der Einfluss unterschiedlicher Randbedingungen auf das elektrische Feld eines Kondensators betrachtet werden. \\
-Ein Kondensator ist eine Anordnung von zwei beliebigen Elektroden, die durch ein Dielektrikum von einander getrennt sind und die gleiche Ladung, aber mit unterschiedlicher Polarität in sich tragen, die Kapazität lässt sich mit $ C = \epsilon_{0}\epsilon_{r}\frac{A}{d}$ berechnen, wobei $A$ die Fläche der Platten, $d$ den Abstand der Platten, $\epsilon_{0}$ die elektrische Feldkonstante und $\epsilon_{r}$ die relative Permittivität des Dielektrikums beschreibt. Außerdem kann die Formel $C = \frac{Q}{U}$ zur Berechnung der Kapazität benutzt werden, $Q$ ist die Ladung in \si{\ampere\second} und $U$ die Spannung in \SI{}{\volt}. \\ \\
-Zum Bau des Kondensators werden in FEMM vier Punkte gesetzt und diese zu Linien verbunden. Der Abstand der Punkte beträgt sowohl in x-, als auch in y-Richtung \SI{30}{\centi\meter}. Genau genommen wird ein Quader erstellt, da die Kondensatorplatten quadratisch sein sollen, hat der Quader eine Tiefe von \SI{30}{\centi\meter}, jedoch verfügt Femm nur eine 2-Dimensionale graphische Darstellung.\\
+Ein Kondensator ist eine Anordnung von zwei beliebigen Elektroden, die durch ein Dielektrikum von einander getrennt sind und die gleiche Ladung, aber mit unterschiedlicher Polarität in sich tragen, die Kapazität lässt sich mit $ C = \epsilon_{0}\epsilon_{r}\frac{A}{d}$ berechnen, wobei $A$ die Fläche der Platten, $d$ den Abstand der Platten, $\epsilon_{0}$ die elektrische Feldkonstante und $\epsilon_{r}$ die relative Permittivität des Dielektrikums beschreibt. Außerdem kann die Formel $C = \frac{Q}{U}$ zur Berechnung der Kapazität benutzt werden, $Q$ ist die Ladung in \si{\coulomb} und $U$ die Spannung in \SI{}{\volt}. \\ \\
+Zum Bau des Kondensators werden in FEMM vier Punkte gesetzt und diese zu Linien verbunden. Der Abstand der Punkte beträgt sowohl in x-, als auch in y-Richtung \SI{30}{\centi\meter}. Genau genommen wird ein Quader erstellt, da die Kondensatorplatten quadratisch sein sollen, hat der Quader eine Tiefe von \SI{30}{\centi\meter}, jedoch verfügt FEMM nur eine 2-Dimensionale graphische Darstellung.\\
  Die linke und rechte Linie in Abbildung \ref{fig:kleinRand} stellen die beiden Kondensatorplatten dar, die obere und untere Linie dienen zur Berandung des elektrischen Felds. An der linken Platte des Kondensators liegt eine Spannung von \SI{1}{\volt} an, an der rechten Seite eine Spannung von \SI{0}{\volt}. Des Weiteren wurde in Abbildung \ref{fig:KäfigRand} ein Kondensator betrachtet, der nicht direkt, sondern durch einen äußeren Käfig berandet wird. Die inneren Linien markieren die beiden Kondensatorplatten, hier liegen die selben Spannungen wie im Vergleichsbild an.
 \begin{figure}[h]
 	\begin{subfigure}[c]{0.2\textwidth}
@@ -20,6 +20,7 @@ Zum Bau des Kondensators werden in FEMM vier Punkte gesetzt und diese zu Linien 
 		\caption{Berandung durch Käfig}
 		\label{fig:KäfigRand}
 	\end{subfigure}
+	\caption{Aufbau und Feldlinien des Kondensators}
 \end{figure}
 
 Vergleich man nun den Plot \ref{fig:kleinRand} mit \ref{fig:KäfigRand}, so wird eindeutig, dass die Feldlinien in Abbildung \ref{fig:kleinRand} senkrecht zu den beiden Flächen stehen. Berandet man den Kondensator durch einen Käfig, so werden auch die nicht senkrecht verlaufenden Feldlinien beachtet. In beiden Fällen entsteht ein homogenes Feld. Auch bei der Kapazität lassen sich unterschiedliche Werte ablesen. Während der Kondensator \ref{fig:kleinRand} eine Kapazität von \SI{2,6562}{\pico\coulomb} hat, liegt die Kapazität von Kondensator \ref{fig:KäfigRand} bei \SI{3,9773}{\pico\coulomb} \newpage
@@ -41,6 +42,7 @@ Zusätzlich soll verglichen werden, wie sich verschiedene Randbedingungen auf da
 		\caption{Rand mit 1V Spannung}
 		\label{fig:1V}
 	\end{subfigure}
+	\caption{Darstellung unterschiedlicher Randbedingungen}
 \end{figure}
 
 Da nun unterschiedliche Randbedingungen herrschen, entstehen auch Feldlinien zwischen den Kondensatorplatten und dem Rand. Es ergeben sich nicht nur unterschiedliche Feldlinien, sondern auch verschiedene Kapazitäten an den beiden Platten. 
@@ -60,7 +62,7 @@ Da nun unterschiedliche Randbedingungen herrschen, entstehen auch Feldlinien zwi
 Die Feldlinien werden offensichtlich durch die anliegende Spannung am Rand beeinflusst und damit auch die Kapazität des Kondensators.
 \\
 \\
-FEMM lässt sich nicht nur mit Hilfe von Octave starten, sondern es besteht auch die Möglichkeit eine OctaveFEMM Routine zu schreiben und damit ein Modell zu erstellen, sowie eine Simulation dieses Modells zu starten. In dem gegebenen Fall, soll eine Routine geschrieben werden, die zwei Parameter $a$ und $h$ entgegen nimmt, wobei $a$ die Kantenlänge und h der Abstand der Platten ist. Aus diesen Informationen soll ein Kondensator erstellt und die berechnete Kapazität $C$ zurückgeliefert werden. Der Quellcode befindet sich im Anhang \\ 
+FEMM lässt sich nicht nur mit Hilfe von Octave starten, sondern es besteht auch die Möglichkeit eine OctaveFEMM Routine zu schreiben und damit ein Modell zu erstellen, sowie eine Simulation dieses Modells zu starten. In dem gegebenen Fall, soll eine Routine geschrieben werden, die zwei Parameter $a$ und $h$ entgegen nimmt, wobei $a$ die Kantenlänge und $h$ der Abstand der Platten ist. Aus diesen Informationen soll ein Kondensator erstellt und die berechnete Kapazität $C$ zurückgeliefert werden. Der Quellcode befindet sich im Anhang. \\ 
 \newpage
 Zunächst wird in Zeile 7 bis 9 FEMM geöffnet und definiert um welche Art von Problem es sich handelt. Zusätzlich werden einige Einstellungen getroffen, wie die Einheit der Variablen, die Tiefe des Modells und die Rechengenauigkeit. \\ 
 In Zeile 10 bis 13 werden die verschiedenen Properties erzeugt, also die Randbedingungen (falls gewünscht), die Kondensatorplatten und das Dielektrikum. \\
