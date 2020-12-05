@@ -1,0 +1,351 @@
+\chapter{Anhang}\label{sec:anhang}
+\lstset{ % Octave Settings
+	language=Octave,
+	extendedchars=true,
+	basicstyle=\footnotesize,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	stepnumber=1,
+	numbersep=10pt,
+	showspaces=false,
+	showstringspaces=false,
+	tabsize=2,
+	breaklines=true,
+	frame=single,
+	morecomment = [l][\itshape\color{blue}]{\%},
+	captionpos=b,
+	title=\lstname
+}
+\subsection*{Methode circuit\_matrices}
+\begin{lstlisting}[caption={Methode \texttt{circuit\_matrices} in Octave}, label=circuit_matrices]
+function [AC,AL,AR,AV,AI,C,L,R,V,I] = circuit_matrices(filename)
+
+% PEMCE Uebung 2: Routine um Schaltunsmatrizen zu erzeugen:
+%  [AC,AL,AR,AV,AI,C,L,R,V,I] = circuit_matrices(filename)
+%
+% Eingabe:
+%  filename  - Dateiname der Netzliste
+%
+% Ausgaben:
+%  AC,...,AI - reduzierte Inzidenzmatrizen fuer Kapazitaten, ..., Stromquellen
+%  C,...,I   - Matrizen der Parameter (Kapazitaten, ..., Stromquellen)
+
+%# lese Schaltung aus netzliste
+cirstruct = prs_spice (filename);
+
+%# initialisiere variablen
+n = cirstruct.totextvar;
+AC=AL=AR=AV=AI=sparse(n,0);
+C=L=R = zeros(0,0);
+V=I= zeros(0,1);
+
+% Durchlaufe alle Elementtypen (R,L,C,...)
+for i=1:size(cirstruct.LCR,2)
+typ=cirstruct.LCR(i).parnames{1,1};
+sz=size(cirstruct.LCR(i).pvmatrix,1);
+
+% Durchlaufe alle Bauteile eines Typen
+for j=1:size(cirstruct.LCR(i).pvmatrix,1)
+val=cirstruct.LCR(i).pvmatrix(j,:);
+pins=cirstruct.LCR(i).vnmatrix(j,:);
+
+if typ == 'L'
+matrix = AL;
+diagonal = L;
+endif 
+if typ == 'R'
+matrix = AR;
+diagonal = R;
+endif 
+if typ == 'C'
+matrix = AC;
+diagonal = C;
+endif 
+if typ == 'V'
+matrix = AV;
+diagonal = V;
+endif  
+if typ == 'I'
+matrix = AI;
+diagonal = I;  
+endif
+
+is_voltage_or_current = typ == 'V' || typ == 'I';
+
+matrix = [matrix,sparse(n,1)]
+%Diagonalmatrix Elemente einfuegen
+
+if is_voltage_or_current == false
+diagonal = [diagonal,zeros(sz,1)];
+
+if typ == 'R'
+val = 1/val;
+endif
+
+diagonal(j,j) = val;
+endif
+
+%Richtung des Stroms bestimmen
+direction = pins(1) - pins(2);
+
+%Strom fliesst von 1 nach 2
+if direction < 0
+%Nur hinzufuegen wenn es sich nicht um den Masseknoten handelt
+if pins(1) != 0
+matrix(pins(1),j)=1;
+endif
+matrix(pins(2),j)=-1;
+
+if is_voltage_or_current == true
+diagonal = [diagonal;val];
+endif
+
+%Strom fliesst von 2 nach 1
+else
+matrix(pins(1),j)=1;
+%Nur hinzufuegen wenn es sich nicht um den Masseknoten handelt
+if pins(2) != 0
+matrix(pins(2),j)=-1;
+endif
+
+if is_voltage_or_current == true
+diagonal = [diagonal;-val];
+endif
+endif
+
+if typ == 'L'
+AL = matrix;
+L = diagonal;
+endif 
+if typ == 'R'
+AR = matrix;
+R = diagonal;
+endif  
+if typ == 'C'
+AC = matrix;
+C = diagonal;
+endif  
+if typ == 'V'
+AV = matrix;
+V = diagonal;
+endif 
+if typ == 'I'
+AI = matrix;
+I = diagonal;  
+endif
+
+endfor
+endfor
+endfunction
+\end{lstlisting}
+
+\subsection*{Methode calculate\_matrices}
+\begin{lstlisting}[caption={Methode \texttt{calculate\_matrices} in Octave}, label=calculate_matrices]
+function [M,K,r] = calculate_matrices(filename)
+
+%Berechnet die Matrizen M,K und r  
+[AC,AL,AR,AV,AI,C,L,R,V,I] = circuit_matrices(filename);
+bl = size(L,1);
+bv = size(V,1);
+n = size(AR,1);
+
+M = [AC*C*AC' zeros(n,bl) zeros(n,bv);
+zeros(bl,n) L zeros(bl,bv);
+zeros(bv,n) zeros(bv,bl) zeros(bv,bv)];
+
+K = [AR*R*AR' AL AV;
+-AL' zeros(bl,bl) zeros(bl,bv);
+-AV' zeros(bv,bl) zeros(bv,bv)];
+
+r = [-AI*I; zeros(bl,1); -V];
+endfunction
+\end{lstlisting}
+
+\subsection*{Finales Skript zur Berechnen der Spannung an Rf (n=1)}
+\begin{lstlisting}[caption={\texttt{FinalesSkript} in Octave}, label=finalesSkript]
+t = [0:1e-8:1e-3];
+
+% Bestimmung des Gleichungssystems:
+[M,K,r] = calculate_matrices('koaxialKabel.net');
+
+% r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet, diese Korrektur fuehrt nun zum richtigen Ergebnis
+r(5) = -r(5);
+
+%res = @(y, yd,t) (M*yd+K*y-r);
+res =@(x,xdot,t)(M*xdot+K*x-r);
+
+% Bestimmung der Anfangswerte:
+U_q = 12;
+L1 = 0.00025;
+R1 = 0.001;
+C1 = 0.0000001;
+R2 = 1500;
+Rf = 1500;
+
+% x0:
+% phi_1 = 12
+% phi_2 = 12
+% phi_3 = 0
+% i_L   = 0
+% i_V   = 0
+x0 = zeros(size(r));
+x0(1) = U_q;
+x0(2) = U_q
+
+% x0_Strich: 
+x0_Strich = zeros(size(r));
+
+% Nummerische Berechnung des Gleichungssystems:
+x = daspk(res,x0,x0_Strich,t);
+
+% Erstellen des Plots:
+plot(t,x(:,3:3));
+xlabel('Zeit t in [s]', 'interpreter', 'tex')
+ylabel('Spannung in [V]', 'interpreter', 'tex')
+legend('\phi_3 entspricht Spannung an Rf')
+\end{lstlisting}
+
+\subsection*{Netzliste für n=10}
+\begin{lstlisting}[caption={\texttt{Netzliste für Koaxialkabel mit 10 Segmenten} in Octave}, label=netlist10]
+Vs A1N1 0 12
+Ro1 A1N1 A1N2 0.001
+L1 A1N2 A1N3 0.00025
+Ru1 0 A1N3 1500
+C1 A1N3 0 0.0000001
+
+Ro2 A1N3 A2N2 0.001
+L2 A2N2 A2N3 0.00025
+Ru2 0 A2N3 1500
+C2 A2N3 0 0.0000001
+
+Ro3 A2N3 A3N2 0.001
+L3 A3N2 A3N3 0.00025
+Ru3 0 A3N3 1500
+C3 A3N3 0 0.0000001
+
+Ro4 A3N3 A4N2 0.001
+L4 A4N2 A4N3 0.00025
+Ru4 0 A4N3 1500
+C4 A4N3 0 0.0000001
+
+Ro5 A4N3 A5N2 0.001
+L5 A5N2 A5N3 0.00025
+Ru5 0 A5N3 1500
+C5 A5N3 0 0.0000001
+
+Ro6 A5N3 A6N2 0.001
+L6 A6N2 A6N3 0.00025
+Ru6 0 A6N3 1500
+C6 A6N3 0 0.0000001
+
+Ro7 A6N3 A7N2 0.001
+L7 A7N2 A7N3 0.00025
+Ru7 0 A7N3 1500
+C7 A7N3 0 0.0000001
+
+Ro8 A7N3 A8N2 0.001
+L8 A8N2 A8N3 0.00025
+Ru8 0 A8N3 1500
+C8 A8N3 0 0.0000001
+
+Ro9 A8N3 A9N2 0.001
+L9 A9N2 A9N3 0.00025
+Ru9 0 A9N3 1500
+C9 A9N3 0 0.0000001
+
+Ro10 A9N3 A10N2 0.001
+L10 A10N2 A10N3 0.00025
+Ru10 0 A10N3 1500
+C10 A10N3 0 0.0000001
+
+Rf 0 A10N3 1500
+\end{lstlisting}
+
+\subsection*{Finales Skript Vergleich n=1 und n=10}
+\begin{lstlisting}[caption={\texttt{SkriptSegmentVergleich1vs10} in Octave}, label=finalesSkript10]
+t = [0:1e-8:2e-3];
+
+% Bestimmung des Gleichungssystems:
+[M,K,r] = calculate_matrices('koaxialKabel.net');
+
+%r(5) (Spannungsquelle) wird wohl mit falschem Vorzeichen berechnet
+r(5) = -r(5);
+
+%res = @(y, yd,t) (M*yd+K*y-r);
+res =@(x,xdot,t)(M*xdot+K*x-r);
+
+% Bestimmung der Anfangswerte:
+U_q = 12;
+L1 = 0.00025;
+R1 = 0.001;
+C1 = 0.0000001;
+R2 = 1500;
+Rf = 1500;
+
+% x0:
+% phi_1 = 12
+% phi_2 = 12
+% phi_3 = 0
+% i_L   = 0
+% i_V   = 0
+x0 = zeros(size(r));
+x0(1) = U_q;
+x0(2) = U_q
+
+% x0_Strich: 
+x0_Strich = zeros(size(r));
+
+% Nummerische Berechnung des Gleichungssystems:
+% x = dassl(res, transpose(x0), zeros(size(r)), t);
+x1 = daspk(res,x0,x0_Strich,t);
+
+
+%-----------------------------------------------
+% Bestimmung des Gleichungssystems mit 10 Segmenten:
+%-----------------------------------------------
+[M10,K10,r10] = calculate_matrices('KK10.net');
+
+%Spannungsquelle wird wohl mit falschem Vorzeichen berechnet
+r10 = -r10;
+
+%res = @(y, yd,t) (M*yd+K*y-r);
+res10 =@(x,xdot,t)(M10*xdot+K10*x-r10);
+
+% Bestimmung der Anfangswerte:
+U_q = 12;
+L1 = 0.00025;
+R1 = 0.001;
+C1 = 0.0000001;
+R2 = 1500;
+Rf = 1500;
+
+% x0:
+% phi_1 = 12
+% phi_2 = 12
+% phi_3 = 0
+% i_L   = 0
+% i_V   = 0
+x0_10 = zeros(size(r10));
+x0_10(1) = U_q;
+x0_10(2) = U_q
+
+% x0_Strich: 
+x0_10_Strich = zeros(size(r10))
+
+% Nummerische Berechnung des Gleichungssystems:
+% x = dassl(res, transpose(x0), zeros(size(r)), t);
+x10 = daspk(res10,x0_10,x0_10_Strich,t);
+
+%----------------------------------------------------
+% Erstellen des Plots:
+plot(t,x1(:,3:3));
+hold on;
+plot(t,x10(:,21:21));
+hold off;
+xlabel('Zeit t in [s]', 'interpreter', 'tex')
+ylabel('Spannung in [V]', 'interpreter', 'tex')
+legend('Ausgangsspannung bei n=1', 'Ausgangsspannung bei n=10')
+
+\end{lstlisting}
+\lstinputlisting{data/femmbuilder.m}
+\lstinputlisting{data/A32d.m}
