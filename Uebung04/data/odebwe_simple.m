@@ -1,22 +1,23 @@
-
 ## Author: Lingenberg, Schiller, Arnold
-## Created: 2020-11-20
+## Created: 2020-12-20
 
-function [M,K,r] = calculate_matrices(filename)
+function x =  odebwe_simple(t,x0,M,K,r)
+% initialize solution vector
+x = zeros(length(x0),length(t));
+x(:,1) = x0;
 
-%Berechnet die Matrizen M,K und r  
-[AC,AL,AR,AV,AI,C,L,R,V,I] = circuit_matrices(filename);
-bl = size(L,1);
-bv = size(V,1);
-n = size(AR,1);
-  
-M = [AC*C*AC' zeros(n,bl) zeros(n,bv);
-       zeros(bl,n) L zeros(bl,bv);
-       zeros(bv,n) zeros(bv,bl) zeros(bv,bv)];
-  
-K = [AR*R*AR' AL AV;
-       -AL' zeros(bl,bl) zeros(bl,bv);
-       -AV' zeros(bv,bl) zeros(bv,bv)];
-       
-r = [-AI*I; zeros(bl,1); -V];
+for i = 2:length(t)
+  % time step size
+  h = t(i) - t(i-1);
+  % system matrix
+  A = (1/h)*M + K;
+  % right hand side
+  b = (1/h)*M*x(:,i-1)+r;
+  % solve the linear system Ax=b
+  x(:,i) = A\b;
+end
+
+%Matlab prefers the transpose
+x
+
 endfunction
