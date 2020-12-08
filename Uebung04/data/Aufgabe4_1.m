@@ -1,8 +1,8 @@
 h = [10e-11,10e-10,10e-9,10e-8,10e-7,10e-6,10e-5,10e-4,10e-3,10e-2,10e-1];
 err1 = zeros(1,11);
-err2 = zeros(1,11)
-err4 = zeros(1,11)
-f = @(x) x
+err2 = zeros(1,11);
+err4 = zeros(1,11);
+f = @(x) exp(x+1);
 for i = 1 : 11
   err1(1,i) = abs(12-diffquot(f,1,1,h(1,i)));
   err2(1,i) = abs(12-diffquot(f,2,1,h(1,i)));

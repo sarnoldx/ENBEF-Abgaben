@@ -1,6 +1,3 @@
-## Author: simon <simon@LAPTOP-RFMQ4V4B>
-## Created: 2020-12-05
-
 function [x] = gaussElim (A,b)
   n = size(A)
   x = zeros(n,1)

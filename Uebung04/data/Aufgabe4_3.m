@@ -1,8 +1,8 @@
 load('bfwa398.mat');
-%A = Problem.A;
-%spy(A);
-%c = nnz(A);
-%b = ones(size(A),1);
+A = Problem.A;
+spy(A);
+c = nnz(A);
+b = ones(size(A),1);
 
 %A1 = inv(A)
 %spy(A1)
@@ -12,9 +12,8 @@ load('bfwa398.mat');
 %gaussElim(A,b)
 
 
-%[L,U,P,Q] = lu(A);
-%spy(R)
-%spy(U)
+[L,U,P,Q] = lu(A);
+spy(U);
 
 rand('seed',0)
 ##e = ones (n , 1 );
@@ -23,7 +22,7 @@ rand('seed',0)
 time1 = zeros(10,5);
 %b = rand(n,1)
 k=0;
-##[L,U,P,Q] = lu(A);
+%[L,U,P,Q] = lu(A);
 n = 500;
 
 ##while (n < 8001)
