@@ -16,8 +16,5 @@ for i = 2:length(t)
   % solve the linear system Ax=b
   x(:,i) = A\b;
 end
-
-%Matlab prefers the transpose
 x
-
 endfunction
