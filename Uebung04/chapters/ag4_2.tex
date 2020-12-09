@@ -1,4 +1,48 @@
 \section{Implizites Euler Verfahren}\label{sec:ag4_2}
 
+Zur numerischen Berechnung einfacher Differenzialgleichungen kann das implizite Euler Verfahren
+\begin{equation}
+\underbrace{
+	\left( \dfrac{1}{h} \mathbf{M} + \mathbf{K} \right)
+}_{\coloneqq \mathbf{A}}
+\mathbf{x_i} =
+\underbrace{
+	\dfrac{1}{h} \mathbf{M} \mathbf{x_{i-1}} + \mathbf{r}
+}_{\coloneqq \mathbf{b_{i-1}}}
+\end{equation}
 
+verwendet werden. Hierzu wurde die Methode \texttt{odebwe\_simple} (siehe Listing:\ref{list:odebwe_simple}) in Octave implementiert. Zurückgegeben wird eine Lösungsmatrix $\mathbf{x}$, in der als Spaltenvektoren die verschiedenen Lösungen in Abhängigkeit der Zeit $t$ enthalten sind.
 
+Zum Test der Methode soll nun das Dahlquist-Problem 
+\begin{equation}
+	\label{gl:dahlquist}
+	x^{\prime}(t) = -kx(t)
+\end{equation}
+für $k=1/5$ und $x(t_0) = 2$ berechnet werden. Die analytisch exakte Lösung ist in diesem Fall durch die Funktion $x(t) = 2 e^{-k t}$ beschrieben. Mithilfe des Skripts Listing \ref{list:dahlquist} wurde die analytische Lösung mit der numerischen verglichen (siehe Abbildung:\ref{fig:dahlquist}):
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.65\textwidth]{data/dahlquist}
+	\caption{\centering Numerische und analytische Lösung der Gleichung \ref{gl:dahlquist}}
+	\label{fig:dahlquist}
+\end{figure}
+
+Die Methode \texttt{odebwe\_simple} scheint korrekt zu funktionieren.
+\newpage
+Nun soll zuletzt das Koaxial Kabel aus der Aufgabe 3.1 (Abbildung:\ref{fig:koaxial}) des letzten Übungsblatts erneut berechnet werden. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{data/koaxialkabel1}
+	\caption{\centering Ersatzschaltbild eines Koaxialkabels}
+	\label{fig:koaxial}
+\end{figure}
+
+Zum Lösen der Differenzialgleichung wird im Skript (Listing:\ref{list:lösung3.1}) die zuvor implementierte Methode \texttt{odebwe\_simple} verwendet. Durch Plotten der dritten Zeile der Lösungsmatrix $\mathbf{x}$ erhält man den zeitlichen Verlauf der Spannung am Lastwiderstand $R_f$. Das sich ergebene Bild (Abbildung:\ref{fig:lösung3.1}) gleicht den Ergebnissen des letzten Übungsblatts.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.55\textwidth]{data/lösung3.1}
+	\caption{\centering Spannung an Lastwiderstand $R_f$ (siehe Abbildung:\ref{fig:koaxial})}
+	\label{fig:lösung3.1}
+\end{figure}

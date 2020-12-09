@@ -17,7 +17,7 @@
 	title=\lstname
 }
 \subsection*{Methode odebwe\_simple}
-\begin{lstlisting}[caption={Methode \texttt{odebwe\_simple} in Octave}, label=odebwe_simple]
+\begin{lstlisting}[caption={Methode \texttt{odebwe\_simple} in Octave}, label=list:odebwe_simple]
 function x =  odebwe_simple(t,x0,M,K,r)
 	% initialize solution vector
 	x = zeros(length(x0),length(t));
@@ -38,7 +38,7 @@ endfunction
 \end{lstlisting}
 
 \subsection*{Dahlquist Problem}
-\begin{lstlisting}[caption={Lösen des Dahlquist-Problem $x^{\prime}(t) = -kx(t)$ mit $k=1/5$ in Octave}, label=Dahlquist-Problem]
+\begin{lstlisting}[caption={Lösen des Dahlquist-Problem $x^{\prime}(t) = -kx(t)$ mit $k=1/5$ in Octave}, label=list:dahlquist]
 h = 1e-1;
 t = 0:h:5;
 k = 1/5;
@@ -53,7 +53,7 @@ ylabel('x-Achse');
 \newpage
 
 \subsection*{Simulation Koaxialkabel}
-\begin{lstlisting}[caption={Nummerische Lösung in Octave der bereits berechneten Aufgabe 3.1 a), nun aber mit eigener Methode \texttt{odebwe\_simple}.}, label=Lösung3.1]
+\begin{lstlisting}[caption={Nummerische Lösung in Octave der bereits berechneten Aufgabe 3.1 a), nun aber mit eigener Methode \texttt{odebwe\_simple}.}, label=list:lösung3.1]
 t = [0:1e-8:1e-3];
 
 x0 = zeros(5,1);
