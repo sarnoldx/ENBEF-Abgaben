@@ -1,6 +1,3 @@
-## Author: simon <simon@LAPTOP-RFMQ4V4B>
-## Created: 2020-12-06
-
 function val = diffquot(f,i,x,h)
   val = 0;
   switch (i)
