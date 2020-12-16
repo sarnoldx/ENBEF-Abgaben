@@ -1,0 +1,54 @@
+\chapter{Anhang}\label{sec:anhang}
+\lstset{ % Octave Settings
+	language=Octave,
+	extendedchars=true,
+	basicstyle=\footnotesize,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	stepnumber=1,
+	numbersep=10pt,
+	showspaces=false,
+	showstringspaces=false,
+	tabsize=2,
+	breaklines=true,
+	frame=single,
+	morecomment = [l][\itshape\color{blue}]{\%},
+	captionpos=b,
+	title=\lstname
+}
+\subsection*{Methode bisektion}
+\begin{lstlisting}[caption={Methode \texttt{bisektion} in Octave. Falls \texttt{a} und \texttt{b} unterschiedliche Vorzeichen haben, konvergiert die Methode gegen eine der Nullstellen aus diesem Intervall. Durch \texttt{maxn} wird die Anzahl der Iterationsschritte und somit auch die Abbruchbedingung definiert}, label=list:bisektion]
+function x = bisektion(f, a, b, maxn)
+	if(sign(f(a))*sign(f(b)) != -1)
+		% Error case (ungueltige Eingabe von a und b)
+		x = -777;
+		return;
+	else
+		c = (a+b)/2;
+		for n = 1:maxn
+			c = (a+b)/2;
+			if(f(c) == 0)
+				x = c;
+				return;
+			end
+			if(sign(f(a))*sign(f(c)) == -1)
+				b = c;
+			else
+			a = c;
+			end
+		end
+		x = c;
+	end
+end
+\end{lstlisting}
+
+\subsection*{Numerische Lösung Aufgabe 5.3d}
+\begin{lstlisting}[caption={Numerische Lösung der Aufgabe 5.3d, durch Umwandlung in ein Nullstellen-Problem}, label=list:ag5.3d]
+C = 5*10^(-12);
+f = @(R1) ((spherecapacity(R1, 1) - C));
+a=1;
+b=10;
+maxn = 20;
+x = bisektion(f, a, b, maxn)
+l = f(3.1130)
+\end{lstlisting}
