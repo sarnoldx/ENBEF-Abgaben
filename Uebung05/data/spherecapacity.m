@@ -9,14 +9,17 @@ function C = spherecapacity (R1, er)
   ei_addconductorprop('Rand1',1,0,1);
   ei_addconductorprop('Rand2',0,0,1);
   
+  %Draw first arcs
   ei_drawarc(0,-R1,R1,0,90,90);
   ei_drawarc(0,-R2,R2,0,90,90);
   
+  %Set segment property and rotate arc once
   ei_selectarcsegment(0,-R1);
   ei_setarcsegmentprop(10,'<None>',0,0,'Rand1');
   ei_copyrotate2(0,0,90,1,3);
   ei_clearselected;
   
+  %Set segment property and rotate arc once
   ei_selectarcsegment(0,-R2);
   ei_setarcsegmentprop(10,'<None>',0,0,'Rand2');
   ei_copyrotate2(0,0,90,1,3);

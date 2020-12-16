@@ -48,10 +48,11 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 \usepackage{mathtools} % erweiterte Fassung von amsmath
 \usepackage{amssymb}   % erweiterter Zeichensatz
 \usepackage[decimalsymbol=comma]{siunitx}   % Einheiten
+\usepackage{amsmath}
 
 
 %%%%%%%%%%%%%%%%%
-% Eigenen Pakete Gruppe03
+% Eigenen Pakete Gruppe01
 %%%%%%%%%%%%%%%%%%%%
 %\usepackage[utf8]{inputenc}
 %\usepackage[ngerman]{babel}
@@ -72,6 +73,13 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 \usepackage{dsfont}
 
 %%%%%%%%%%%%%%%%%%%
+% verschiedene Nummerierung für Abbildungen und Formeln
+%%%%%%%%%%%%%%%%%%%
+\usepackage{chngcntr}
+\counterwithout{equation}{chapter}
+
+
+%%%%%%%%%%%%%%%%%%%
 % Pseudocode
 %%%%%%%%%%%%%%%%%%%
 \usepackage[linesnumbered,lined,boxruled]{algorithm2e} % Package für Pseudocode
@@ -85,16 +93,6 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 % Sonstiges
 %%%%%%%%%%%%%%%%%%%
 \usepackage{blindtext} % Package für Blindtext
-
-
-%%%%%%%%%%%%%%%%%%%
-%setzt floats auch oben auf die seite
-%%%%%%%%%%%%%%%%%%%
-\makeatletter
-\setlength{\@fptop}{0pt}
-\setlength{\@fpbot}{0pt plus 1fil}
-\makeatother
-
 
 \begin{document}
 	\title{Ausarbeitung Übung 5}
@@ -139,19 +137,24 @@ fontsize=11pt,%Basisschriftgröße laut Corporate Design ist mit 9pt häufig zu 
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	% INHALT, am Besten ausgelagert in eigene Files/Kapitel und dann mit \include{Unterordner/Filename} eingefügt, sorgt für bessere Übersichtlichkeit und Fehlersuche. Einzelne Dateien sind aktuell im Ordner Sections abgelegt. 
-	
-	
+	%%%%%%%%%%%%%%%%%%Einleitung%%%%%%%%%%%%%%%%%
+	%\include{chapters/intro} 
 	%%%%%%%%%%%%%%%%%%Haupteil%%%%%%%%%%%%%%%%%%%
-	\include{chapters/Ag5_2}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%\include{chapters/ag4_1}
+	\include{chapters/ag5_2ab}
+	%\include{chapters/ag4_3}
 	
+	%%%%%%%%%%%%%%%%%%Fazit%%%%%%%%%%%%%%%%%%%%%%
+	%\include{chapters/fazit}
+	%%%%%%%%%%%%%%%%%%Anhang%%%%%%%%%%%%%%%%%%%%%
+	%\include{chapters/anhang}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	%%%%%%%%%%%%%%%%%%%
 	%Abbildungs- und Tabellenverzeichnis
 	%%%%%%%%%%%%%%%%%%%
 	\listoffigures % Abbildungsverzeichnis (captions in den Figuren werden als Referenz genommen)
-	\listoftables % Verzeichnis der Tabellen (captions in den Tabellen werden als Referenz genommen)
+	%\listoftables % Verzeichnis der Tabellen (captions in den Tabellen werden als Referenz genommen)
 	
 	%%%%%%%%%%%%%%%%%%%
 	%Literaturverzeichnis an dieser Stelle
