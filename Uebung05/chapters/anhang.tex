@@ -16,6 +16,12 @@
 	captionpos=b,
 	title=\lstname
 }
+
+\lstinputlisting{data/femmcapacity.m}
+\lstinputlisting{data/spherecapacity.m}
+\lstinputlisting{data/Ag5_2b.m}
+\lstinputlisting{data/Ag5_3b.m}
+
 \subsection*{Methode bisektion}
 \begin{lstlisting}[caption={Methode \texttt{bisektion} in Octave. Falls \texttt{a} und \texttt{b} unterschiedliche Vorzeichen haben, konvergiert die Methode gegen eine der Nullstellen aus diesem Intervall. Durch \texttt{maxn} wird die Anzahl der Iterationsschritte und somit auch die Abbruchbedingung definiert}, label=list:bisektion]
 function x = bisektion(f, a, b, maxn)
@@ -52,7 +58,3 @@ maxn = 20;
 x = bisektion(f, a, b, maxn)
 l = f(3.1130)
 \end{lstlisting}
-\lstinputlisting{data/femmcapacity.m}
-\lstinputlisting{data/spherecapacity.m}
-\lstinputlisting{data/Ag5_2b.m}
-\lstinputlisting{data/Ag5_3b.m}

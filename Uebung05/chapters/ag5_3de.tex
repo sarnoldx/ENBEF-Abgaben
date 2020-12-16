@@ -1,2 +1,22 @@
+Bestimmt werden soll nun, für welche Werte $R_1$ und $R_2$ die Kapazität den Wert
+$C = \SI{5}{\pico\farad}$ an nimmt.
+Mithilfe der Formel \ref{eq:Kapa} gelten folgende Zusammenhänge:
 
-salamamleiikum
+\begin{equation}
+\SI{5}{\pico\farad} = 4\pi\varepsilon_0\varepsilon_r\frac{R_2R_1}{R_2-R_1} \text{, sowie } 
+R_2 = R_1 + \SI{7}{\centi\meter}
+\end{equation}
+
+Einsetzen der zweiten Formel liefert eine quadratische Gleichung für $R_1$
+
+\begin{equation}
+\SI{5}{\pico\farad} = 4\pi\varepsilon_0\varepsilon_r\frac{R_1(R_1+\SI{7}{\centi\meter})}{\SI{7}{\centi\meter}}
+\end{equation}
+
+Für die man Folgendes Ergebnis erhält:
+
+\begin{equation}
+R_1 = \SI{-7/2}{\centi\meter} \pm \sqrt{\left(\SI{7/2}{\centi\meter}\right)^2 + \dfrac{\SI{7}{\centi\meter} \cdot \SI{5}{\pico\farad}}{4\pi\varepsilon_0\varepsilon_r}}
+\end{equation}
+
+Dabei ist nur das Ergebnis $R_1 = \SI{3.1111}{\centi\meter}$ positiv und in diesem Zusammenhang sinnvoll.
