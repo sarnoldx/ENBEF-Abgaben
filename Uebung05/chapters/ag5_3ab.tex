@@ -23,17 +23,25 @@ Um den Einfluss der Radien auf die Kapazität zu untersuchen, wurden der Methode
 \end{equation}
 Die berechneten Kapazitätswerte sind in Abbildung \ref{fig:Kapa} graphisch dargestellt. Die Formel 
 \begin{equation}
-	C = 4\pi\varepsilon_0\varepsilon_r\frac{(R_1+\SI{0.07}{\meter})R_1}{R_1+\SI{0.07}{\meter-R_1}}
+	C = 4\pi\varepsilon_0\varepsilon_r\frac{(R_1+\SI{7}{\centi\meter})R_1}{R_1+\SI{7}{\centi\meter-R_1}}
 \end{equation}
 ergibt sich indem man (\ref{eq:R2}) in (\ref{eq:Kapa}) einsetzt. Durch weiteres vereinfachen folgt, dass die Kapazität
 \begin{equation}
-	C = 4\pi\varepsilon_0\varepsilon_r\frac{R_1^2+\SI{0.07}{\meter}}{(\SI{0.07}{\meter)}}
+	C = 4\pi\varepsilon_0\varepsilon_r\frac{R_1^2+\SI{7}{\centi\meter}}{\SI{7}{\centi\meter}}
 \end{equation}
 quadratisch von $R_1$ abhängt, daraus ergibt sich ein quadratischer Verlauf der Kapazität des Kugelkondensators mit steigendem Innenradius.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{data/Kugelkapa}
-	\caption{Entwicklung der Kapazität mit steigendem Radius $R_1 \in \mathbb{N}, R_1 \in [1,100]$ und $R_2 = R_1 + \SI{7}{\centi\meter}$}
+	\caption{Entwicklung der Kapazität mit steigendem Radius $R_1 \in \mathbb{N}, R_1 \in [1,100]$, $[R_1] = \centi\meter ~$ und $R_2 = R_1 + \SI{7}{\centi\meter}$}
 	\label{fig:Kapa}
 \end{figure}
+
+Unter der Voraussetzung, dass $(R_2+R_1) = \SI{15}{\centi\meter}$ gilt, ergibt sich für den Innendurchmesser $R_1 = \SI{4}{\centi\meter}$ und für den Außendurchmesser $R_2 = \SI{11}{\centi\meter}$. Analytisch lässt sich mit (\ref{eq:Kapa}) eine Kapazität $C_{\mathrm{ana}} = \SI{6,994}{\pico\farad}$ berechnen, FEMM berechnet eine Kapazität $C_{\mathrm{num}} = \SI{6,986}{\pico\farad}$. \\
+Der relative Fehler
+\begin{equation}
+	\mathrm{err :=} \frac{|C_{\mathrm{ana}}-C_{\mathrm{num}}|}{|C_{\mathrm{ana}}|}
+	\label{eq:err}
+\end{equation}
+ergibt sich mit den vorher berechneten Werten $C_{\mathrm{ana}}$ und $C_{\mathrm{num}}$ zu $1.1 \cdot 10^{-3}$, liegt also im niedrigen Promillebereich, die durch FEMM berechnete Annäherung ist also sehr exakt.
