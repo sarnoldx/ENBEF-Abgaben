@@ -9,6 +9,6 @@ N = 1:1:20;
 semilogy(N,C,'linewidth',3);
 
 xlabel('Anzahl Schichten','fontsize',26);
-ylabel('Kapazität in F','fontsize',26);
+ylabel('Kapazitaet in F','fontsize',26);
 set(gca,'Fontsize',26);
 axis([1 20]);
