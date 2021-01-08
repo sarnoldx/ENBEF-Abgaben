@@ -1,0 +1,87 @@
+\section{Stetigkeitsbedingung des Stromes}
+Mithilfe des Ampereschen Gesetzes
+
+\begin{equation}
+\label{gl:ampere}
+\operatorname{rot} \vec{H}(\vec{r},t) = \frac{\partial\vec{D}(\vec{r},t)}{\partial t}
++ \vec{J}(\vec{r},t)
+\end{equation} 
+
+und des Gaussschen Gesetzes
+
+\begin{equation}
+\label{gl:gauss}
+\operatorname{div} \vec{D}(\vec{r},t) = \varrho (\vec{r},t),
+\end{equation}
+
+lässt sich die Kontinuitätsgleichung (siehe Gleichung \ref{gl:kontinu}) herleiten.
+Bildet man auf beiden Seiten der Gleichung \ref{gl:ampere} die Divergenz der Vektorfelder erhält man
+
+\begin{equation*}
+\operatorname{div} \operatorname{rot} \vec{H}(\vec{r},t) = \operatorname{div} \left( \frac{\partial\vec{D}(\vec{r},t)}{\partial t} + \vec{J}(\vec{r},t) \right),
+\end{equation*} 
+
+wobei $\operatorname{div} \operatorname{rot} \vec{a} = 0$ und $\operatorname{div} (\vec{a}+\vec{b}) = \operatorname{div} \vec{a} + \operatorname{div} \vec{a}$ gilt. Es ergibt sich die Gleichung
+
+\begin{equation*}
+\frac{\partial}{\partial t}\operatorname{div}\vec{D}(\vec{r},t) + \operatorname{div}\vec{J}(\vec{r},t) = 0.
+\end{equation*}
+
+Setzt man zuletzt nun Gleichung \ref{gl:gauss} ein erhält man die Kontinuitätsgleichung
+
+\begin{equation}
+\label{gl:kontinu}
+\frac{\partial \varrho (\vec{r},t)}{\partial t} + \operatorname{div}\vec{J}(\vec{r},t) = 0.
+\end{equation}
+
+Aus Gleichung \ref{gl:kontinu} soll nun die Stetigkeitsbedingung für die Stromdichte bestimmt werden. Hierzu werden Überlegungen an einer Grenzfläche unternommen. Gleichung \ref{gl:kontinu} wird auf beiden Seiten über ein quaderförmiges  Volumen $V$ integriert, durch das die Grenzfläche verläuft (siehe Abbildung \ref{fig:grenz}).
+
+\begin{figure}[thbp]
+	\centering
+	\includegraphics[width=.5\textwidth]{data/Grenzfläche}
+	\caption{Grenzfläche zwischen zwei Vektorfeldern $\vec{J_1}$ und $\vec{J_1}$ mit eingeführtem Quadervolumen $V$}
+	\label{fig:grenz}
+\end{figure}
+
+Durch dieses Vorgehen erhält man die Gleichung
+
+\begin{equation*}
+\int\limits_{V}^{} \operatorname{div}\vec{J}(\vec{r},t) \ dV = -\frac{\partial}{\partial t} \int\limits_{V}^{} \varrho (\vec{r},t) \ dV.
+\end{equation*}
+
+Mithilfe des Integralsatz von Gauss (siehe Gleichung \ref{gl:integralsatz})
+\begin{equation}
+\label{gl:integralsatz}
+\int\limits_{V}^{} \operatorname{div}\vec{F} \ dV = \int\limits_{\partial V}^{} \vec{F} \ d\vec{A}
+\end{equation}
+Ergibt sich der erste Teil der Gleichung zu 
+\begin{equation*}
+\int\limits_{\partial V}^{} \vec{J}(\vec{r},t) \ d\vec{A} = -\frac{\partial}{\partial t} \int\limits_{V}^{} \varrho (\vec{r},t) \ dV.
+\end{equation*}
+Hierbei beschreibt $\partial V$ den Rand des Volumens. Es handelt sich nun um ein Oberflächenintegral, die Dimension wurde um eins verringert.
+
+Das Volumenintegral über die Raumladungsdichte $\varrho$ im zweiten Teil der Gleichung lässt sich durch die Gesamtladung $Q_V$ innerhalb des gedachten Volumens $V$ ersetzen.
+\begin{equation*}
+\int\limits_{\partial V}^{} \vec{J}(\vec{r},t) \ d\vec{A} = -\frac{\partial Q_V(t)}{\partial t}.
+\end{equation*}
+
+Die Seitenflächen des Quaders, die senkrecht zu der Grenzfläche liegen, werden nun als vernachlässigbar klein angenommen. Demnach müssen für das Oberflächenintegral nur noch die zwei Stirnflächen $A$ mit Normalenvektor $\vec{n}_1$ und $\vec{n}_2$ betrachtet werden, die fast auf der Grenzfläche liegen. Oberhalb der Grenzfläche liegt das Vektorfeld $\vec{J_1}$, unterhalb $\vec{J_2}$ vor. Da die Normalenvektoren in unterschiedliche Richtung zeigen ergibt sich die Gleichung
+\begin{equation*}
+\int\limits_{A}^{} \vec{J_1}(\vec{r},t) \ d\vec{A} - \int\limits_{A}^{} \vec{J_2}(\vec{r},t) \ d\vec{A} = -\frac{\partial Q_A(t)}{\partial t}.
+\end{equation*}
+Ist Fläche $A$ nun selbst infinitesimal klein, so kann $\vec{J_1}$ und $\vec{J_2}$ auf der gesamten Fläche als konstant angenommen werden. Die Integrale lassen sich zu 
+\begin{equation*}
+A(\vec{J_1}-\vec{J_2})\cdot \vec{n}
+\end{equation*}
+vereinfachen. Auch die Flächenladung $Q_A$ kann bei einer unendlich kleinen Fläche wieder durch die Flächenladungsdichte $\varrho_A$ beschreiben werden  mit $Q_A =\varrho_A \cdot A $. Abschließend ergibt sich
+
+\begin{equation*}
+A(\vec{J_1}(t)-\vec{J_2}(t))\cdot \vec{n} = \frac{\partial \varrho_A(t) \cdot A}{\partial t}
+\end{equation*}
+und nach kürzen von $A$
+\begin{equation}
+\label{gl:stetig}
+(\vec{J_1}(t)-\vec{J_2}(t))\cdot \vec{n} = \frac{\partial \varrho_A(t)}{\partial t}
+\end{equation}
+
+Formel \ref{gl:stetig} trifft nun Aussagen über die Stetigkeit der Stromdichte $\vec{J}$ an einer Grenzfläche. $\vec{J_1}$ und $\vec{J_2}$ sind stetig in normaler Richtung, wenn $\frac{\partial \varrho_A}{\partial t} = 0$ gilt, also sich die Ladungsdichte an der Grenzfläche nicht zeitlich verändert.
