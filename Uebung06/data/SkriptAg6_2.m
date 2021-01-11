@@ -50,16 +50,16 @@
 %    counter += 1; 
 % endfor
 
-%A = dlmread('C:\Users\simon\OneDrive\Desktop\Uni\ENBEF\Git\ENBEF Abgaben\Uebung06\data\A60.txt');
-%surf(600:25:2000,2000:5600,A(:,1:57));
-hold on
-plot(C(3400,:))
-hold off
-xlabel("Höhe des Messpunktes","Fontsize",18);
-ylabel("Stärke des elektrischen Felds in V/m","Fontsize",18);
+A = dlmread('C:\Users\simon\OneDrive\Desktop\Uni\ENBEF\Git\ENBEF Abgaben\Uebung06\data\A60.txt');
+surf(600:25:2000,2000:5600,A(:,1:57));
+% hold on
+% plot(C(2600,:))
+% hold off
+ylabel("Höhe des Messpunktes","Fontsize",20);
+zlabel("Stärke des elektrischen Felds in V/m","Fontsize",20);
 %l = legend('Elektrisches Feld ohne Randbedinung','Elektrisches Feld mit Randbedingung',"location", "northwest");
 %set(l,'Fontsize',18,'color','none');
-set(gca,'Fontsize',18);
+%set(gca,'Fontsize',18);
 
 %legend boxoff;
-%xlabel("Außendurchmesser des Rings in mm","Fontsize",18);
+xlabel("Außendurchmesser des Rings in mm","Fontsize",20);

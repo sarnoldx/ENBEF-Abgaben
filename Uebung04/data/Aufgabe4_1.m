@@ -7,7 +7,7 @@ for i = 1 : 11
   err1(1,i) = abs(12-diffquot(f,1,1,h(1,i)));
   err2(1,i) = abs(12-diffquot(f,2,1,h(1,i)));
   err4(1,i) = abs(12-diffquot(f,4,1,h(1,i)));
-endfor
+end
 
 loglog(h,err1,'Linewidth',2,h,err2,'Linewidth',2,h,err4,'Linewidth',2);
 l = legend('Differenzenquotient 1. Ordnung','Differenzenquotient 2. Ordnung','Differenzenquotient 4. Ordnung',"location", "northwest");
