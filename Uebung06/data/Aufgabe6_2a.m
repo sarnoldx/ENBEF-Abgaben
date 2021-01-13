@@ -175,7 +175,7 @@ function F = Aufgabe6_2a (d, z, meshnet)
   ei_setsegmentprop('boundary',0,1,0,0,'None');
   ei_clearselected;
   
-  %Segmente für feineres Netz auswählen
+  %Segmente fuer feineres Netz auswaehlen
   ei_selectsegment(0,2050);
   ei_selectsegment(0,2600);
   ei_selectsegment(0,3140);

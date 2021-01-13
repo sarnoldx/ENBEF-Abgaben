@@ -21,8 +21,8 @@
 % endfor
 % 
 % %axis([3400 3500]);
-% xlabel("Höhe des Messpunktes in mm","Fontsize",24);
-% ylabel("Stärke des elektrostatischen Felds in V/m","Fontsize",24);
+% xlabel("Hoehe des Messpunktes in mm","Fontsize",24);
+% ylabel("Staerke des elektrostatischen Felds in V/m","Fontsize",24);
 % hold off
 % 
 % 
@@ -37,8 +37,8 @@
 % h = legend('Feld ohne Randbedingung','Feld mit Randbedingung', "location", "northwest");
 % set(h,'Fontsize',20,'color','none');
 % legend boxoff;
-% xlabel("Höhe des Messpunktes in mm","Fontsize",18);
-% ylabel("Stärke des elektrostatischen Felds in V/m","Fontsize",18);
+% xlabel("Hoehe des Messpunktes in mm","Fontsize",18);
+% ylabel("Staerke des elektrostatischen Felds in V/m","Fontsize",18);
 % set(gca,"fontsize",18);
 % hold off
 
@@ -55,11 +55,11 @@ surf(600:25:2000,2000:5600,A(:,1:57));
 % hold on
 % plot(C(2600,:))
 % hold off
-ylabel("Höhe des Messpunktes","Fontsize",20);
-zlabel("Stärke des elektrischen Felds in V/m","Fontsize",20);
+ylabel("Hoehe des Messpunktes","Fontsize",20);
+zlabel("Staerke des elektrischen Felds in V/m","Fontsize",20);
 %l = legend('Elektrisches Feld ohne Randbedinung','Elektrisches Feld mit Randbedingung',"location", "northwest");
 %set(l,'Fontsize',18,'color','none');
 %set(gca,'Fontsize',18);
 
 %legend boxoff;
-xlabel("Außendurchmesser des Rings in mm","Fontsize",20);
+xlabel("Aussendurchmesser des Rings in mm","Fontsize",20);
