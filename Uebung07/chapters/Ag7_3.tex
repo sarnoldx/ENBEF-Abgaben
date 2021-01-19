@@ -1,1 +1,54 @@
 \section{Potentialformulierung und Eichung}
+Die vier Maxwell'schen Gleichungen lauten:
+\begin{equation}
+\label{gl:max1}
+\nabla \times \vec{E} = -\partial_t\vec{B}
+\end{equation}
+\begin{equation}
+\label{gl:max2}
+\nabla \times \left(\frac{1}{\mu_0}\vec{B}\right) = \partial_t\varepsilon_0\vec{E} + \vec{J}
+\end{equation}
+\begin{equation}
+\label{gl:max3}
+\nabla \cdot \vec{B} = 0
+\end{equation}
+\begin{equation}
+\label{gl:max4}
+\nabla \cdot \vec{E} = \frac{\rho}{\varepsilon_0}
+\end{equation}
+Alle Feldgrößen sind von Ort $\vec{r}$ und Zeit $t$ abhängig. Alternativ lässt sich eine Formulierung mithilfe der Potenziale $\vec{A}$ und $\Phi$ aufschreiben, welche implizit durch die Gleichungen
+\begin{equation}
+\label{gl:max5}
+\vec{E} = -\partial_t\vec{A} - \nabla\Phi,
+\end{equation}
+\begin{equation}
+\label{gl:max6}
+\vec{B} = \nabla\times\vec{A}
+\end{equation}
+gegeben sind.
+
+In der Elektrostatik kann Gleichung \ref{gl:max5} durch $\vec{E} = - \nabla\Phi$ vereinfacht werden, da alle Vorgänge statisch sind, also zeitlich unveränderlich. Es gilt $\partial_t\vec{A} = \vec{0}$. Demnach spielen für die Elektrostatik nur Eichfelder $\vec{A}$, $\Phi$ eine Rolle, die zeitunabhängig sind.
+
+Wir betrachten im folgenden nun jedoch den allgemeinen, zeitlich veränderlichen Fall und gehen nun näher auf die Beschreibung der Maxwell'schen Gleichungen durch die Eichfelder $\vec{A}$ und $\Phi$ ein.
+
+Gleichung \ref{gl:max6} impliziert Gleichung \ref{gl:max3}, da man durch Skalarmultiplikation mit dem Nabla-Operator $\nabla$
+
+\begin{align*}
+\nabla \cdot \vec{B} &= \nabla \cdot (\nabla\times\vec{A}) \\
+\nabla \cdot \vec{B} &= 0
+\end{align*}
+
+erhält. Die Schreibweise $\nabla \cdot (\nabla\times\vec{A})$ ist hierbei äquivalent zur Schreibweise $\operatorname{div} \operatorname{rot} \vec{A}$, und demnach immer Null.
+
+Ebenso impliziert Gleichung \ref{gl:max5} die Gleichung \ref{gl:max1}. Hierzu bildet man das Vektorprodukt mit dem Nabla-Operator $\nabla$ auf beiden Seiten der Gleichung:
+
+\begin{align*}
+\nabla \times \vec{E} &= \nabla \times (-\partial_t\vec{A} - \nabla\Phi) \\
+ &= \nabla \times (-\partial_t\vec{A}) - \nabla \times(\nabla\Phi) \\
+ &= \nabla \times (-\partial_t\vec{A}) \\
+ &= -\partial_t (\nabla \times \vec{A}) \\
+ &= -\partial_t \vec{B} \\
+\end{align*}
+
+Angewendet wurde die Rechenregel $\nabla \times(\nabla\Phi) = \operatorname{rot}\operatorname{grad}\Phi = \vec{0} $, ebenso wurde die Gleichung \ref{gl:max6} im letzten Schritt eingesetzt, um wieder auf $\vec{B}$ zu kommen.
+
