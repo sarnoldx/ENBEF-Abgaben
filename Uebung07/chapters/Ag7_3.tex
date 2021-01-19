@@ -27,11 +27,11 @@ Alle Feldgrößen sind von Ort $\vec{r}$ und Zeit $t$ abhängig. Alternativ läs
 \end{equation}
 gegeben sind.
 
-In der Elektrostatik kann Gleichung \ref{gl:max5} durch $\vec{E} = - \nabla\Phi$ vereinfacht werden, da alle Vorgänge statisch sind, also zeitlich unveränderlich. Es gilt $\partial_t\vec{A} = \vec{0}$. Demnach spielen für die Elektrostatik nur Eichfelder $\vec{A}$, $\Phi$ eine Rolle, die zeitunabhängig sind.
+In der Elektrostatik kann (\ref{gl:max5}) durch $\vec{E} = - \nabla\Phi$ vereinfacht werden, da alle Vorgänge statisch sind, also zeitlich unveränderlich. Es gilt $\partial_t\vec{A} = \vec{0}$. Demnach spielen für die Elektrostatik nur Eichfelder $\vec{A}$, $\Phi$ eine Rolle, die zeitunabhängig sind.
 
 Wir betrachten im folgenden nun jedoch den allgemeinen, zeitlich veränderlichen Fall und gehen nun näher auf die Beschreibung der Maxwell'schen Gleichungen durch die Eichfelder $\vec{A}$ und $\Phi$ ein.
 
-Gleichung \ref{gl:max6} impliziert Gleichung \ref{gl:max3}, da man durch Skalarmultiplikation mit dem Nabla-Operator $\nabla$
+(\ref{gl:max6}) impliziert (\ref{gl:max3}), da man durch Skalarmultiplikation mit dem Nabla-Operator $\nabla$
 
 \begin{align*}
 \nabla \cdot \vec{B} &= \nabla \cdot (\nabla\times\vec{A}) \\
@@ -40,7 +40,7 @@ Gleichung \ref{gl:max6} impliziert Gleichung \ref{gl:max3}, da man durch Skalarm
 
 erhält. Die Schreibweise $\nabla \cdot (\nabla\times\vec{A})$ ist hierbei äquivalent zur Schreibweise $\operatorname{div} \operatorname{rot} \vec{A}$, und demnach immer Null.
 
-Ebenso impliziert Gleichung \ref{gl:max5} die Gleichung \ref{gl:max1}. Hierzu bildet man das Vektorprodukt mit dem Nabla-Operator $\nabla$ auf beiden Seiten der Gleichung:
+Ebenso impliziert (\ref{gl:max5}) die Gleichung (\ref{gl:max1}). Hierzu bildet man das Vektorprodukt mit dem Nabla-Operator $\nabla$ auf beiden Seiten der Gleichung:
 
 \begin{align*}
 \nabla \times \vec{E} &= \nabla \times (-\partial_t\vec{A} - \nabla\Phi) \\
@@ -50,5 +50,5 @@ Ebenso impliziert Gleichung \ref{gl:max5} die Gleichung \ref{gl:max1}. Hierzu bi
  &= -\partial_t \vec{B} \\
 \end{align*}
 
-Angewendet wurde die Rechenregel $\nabla \times(\nabla\Phi) = \operatorname{rot}\operatorname{grad}\Phi = \vec{0} $, ebenso wurde die Gleichung \ref{gl:max6} im letzten Schritt eingesetzt, um wieder auf $\vec{B}$ zu kommen.
+Angewendet wurde die Rechenregel $\nabla \times(\nabla\Phi) = \operatorname{rot}\operatorname{grad}\Phi = \vec{0} $, ebenso wurde die (\ref{gl:max6}) im letzten Schritt eingesetzt, um wieder auf $\vec{B}$ zu kommen.
 
