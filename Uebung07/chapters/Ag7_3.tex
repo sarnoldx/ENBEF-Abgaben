@@ -31,7 +31,7 @@ In der Elektrostatik kann (\ref{gl:max5}) durch $\vec{E} = - \nabla\Phi$ vereinf
 
 Wir betrachten im folgenden nun jedoch den allgemeinen, zeitlich veränderlichen Fall und gehen nun näher auf die Beschreibung der Maxwell'schen Gleichungen durch die Eichfelder $\vec{A}$ und $\Phi$ ein.
 
-(\ref{gl:max6}) impliziert (\ref{gl:max3}), da man durch Skalarmultiplikation mit dem Nabla-Operator $\nabla$
+Gleichung (\ref{gl:max6}) impliziert (\ref{gl:max3}), da man durch Skalarmultiplikation mit dem Nabla-Operator $\nabla$
 
 \begin{align*}
 \vec{B} &= \nabla\times\vec{A} \\
@@ -54,3 +54,75 @@ Ebenso impliziert (\ref{gl:max5}) die Gleichung (\ref{gl:max1}). Hierzu bildet m
 
 Angewendet wurde die Rechenregel $\nabla \times(\nabla\Phi) = \operatorname{rot}\operatorname{grad}\Phi = \vec{0} $, ebenso wurde Gleichung (\ref{gl:max6}) im letzten Schritt eingesetzt, um wieder auf $\vec{B}$ zu kommen.
 
+Die Potentialformulierung der Maxwell'schen Gleichungen erhält man, indem man (\ref{gl:max5}) und (\ref{gl:max6}) in (\ref{gl:max2}) einsetzt
+
+\begin{align*}
+\nabla \times \left(\frac{1}{\mu_0}\vec{B}\right) &= \partial_t\varepsilon_0\vec{E} + \vec{J} \text{\qquad mit } \vec{J}=\sigma\vec{E} \\
+\nabla \times \left(\frac{1}{\mu_0}\vec{B}\right) &= \partial_t\varepsilon_0\vec{E} + \sigma\vec{E} \\
+\nabla \times \left(\frac{1}{\mu_0}\nabla\times\vec{A}\right) &= \partial_t\varepsilon_0(-\partial_t\vec{A} - \nabla\Phi) + \sigma(-\partial_t\vec{A} - \nabla\Phi)
+\end{align*}
+\begin{equation}
+\label{gl:pot1}
+\frac{1}{\mu_0}\nabla \times (\nabla\times\vec{A}) = (\partial_t\varepsilon_0 + \sigma)(-\partial_t\vec{A} - \nabla\Phi), \hspace{1.64cm}
+\end{equation}
+
+sowie in Gleichung (\ref{gl:max4}):
+
+\begin{equation*}
+\nabla \cdot \vec{E} = \frac{\rho}{\varepsilon_0} 
+\end{equation*}
+\begin{equation}
+\label{gl:pot2}
+\nabla \cdot (-\partial_t\vec{A} - \nabla\Phi) = \frac{\rho}{\varepsilon_0} \hspace{2cm}
+\end{equation}
+
+Die Maxwell'schen Gleichungen lassen sich also durch das Gleichungssystem bestehend aus (\ref{gl:pot1}) und (\ref{gl:pot2})
+alternativ beschreiben.\\
+Vergleicht man beide Systeme mit einander, fällt auf, dass das Maxwell'sche Gleichungssystem ein System erster Ordnung ist. Die Potentialdarstellung hingegen hat die Ordnung 2, da in (\ref{gl:pot1}) $\vec{A}$ zweimal partiell nach $t$ differenziert wird.
+Das  Maxwell'sche Gleichungssystem besitzt dabei mit den dreidimensionalen Lösungsvektoren $\vec{E}$ und $\vec{B}$ 6 Freiheitsgrade. Zählt man die Skalaren Größen elektrische Leitfähigkeit $\sigma$ (Erhalten nach Ersetzen von $\vec{J}=\sigma\vec{E}$) und Ladungsdichte $\rho$ hinzu, kommt man auf eine Summe von 8 Freiheitsgraden. Wir haben uns hierbei dazu entschieden $\sigma$ und $\rho$ als zwei weitere Unbekannte zu betrachten, da so die Anzahl der Freiheitsgrade mit der Anzahl an Gleichungen in (\ref{gl:max1}) bis (\ref{gl:max4}) übereinstimmt (Gleichung (\ref{gl:max1}) und (\ref{gl:max2}) sind hierbei wieder Vektorgleichungen, sie sind also jeweils als drei skalare Gleichungen anzusehen)\\
+Im Fall der Potenzialdarstellung (\ref{gl:pot1}),(\ref{gl:pot2}) lassen sich mit $\vec{A}$ (3 Freiheitsgrade), $\Phi, \sigma$ und $\rho$ in Summe 6 Freiheitsgrade finden. Die Anzahl der Freiheitsgrade hat sich durch die Umformung um zwei verringert.
+
+\newpage
+
+Die Eichfelder $\vec{A}$ und $\Phi$ sind nun nicht mehr eindeutig bestimmt. Durch eine Eichtransformation mit 
+
+\begin{equation*}
+\vec{A}\rightarrow \vec{A}^* = \vec{A} + \nabla\Lambda,
+\end{equation*}
+\begin{equation*}
+\Phi\rightarrow \Phi^* = \Phi - \partial_t\Lambda,
+\end{equation*}
+
+lässt sich eine Eichfunktion $\Lambda=\Lambda(\vec{r},t)$, vergleichbar mit einer Integrationskonstante, finden, die folgende Eigenschaft erfüllt:
+\begin{align*}
+\vec{B} &= \nabla \times \vec{A}^* \\ &= \nabla \times(\vec{A} + \nabla\Lambda) \\ &= \nabla\times\vec{A} + \nabla\times(\nabla\Lambda) \\ &= \nabla \times \vec{A} \text{, sowie }\\
+\vec{E} &= -\partial_t\vec{A}^* - \nabla\Phi^*\\
+&= -\partial_t(\vec{A} + \nabla\Lambda) - \nabla(\Phi - \partial_t\Lambda) \\
+&= -\partial_t\vec{A} -\partial_t\nabla\Lambda - \nabla\Phi + \partial_t\nabla\Lambda\\
+&= -\partial_t\vec{A} - \nabla\Phi
+\end{align*}
+Die Eichtransformation führt zu einer Veränderung der Eichfelder, jedoch nicht zu einer Veränderung der physikalisch wirksamen Felder $\vec{B}$ und $\vec{E}$.\\Es lässt sich für eine bestimmte Lösung $\vec{A}$,$\Phi$ eindeutig ein Vektorfeld $\vec{B}$, $\vec{E}$ ermitteln. Umgekehrt ist dies jedoch nur bis auf eine beliebige Eichfunktion $\Lambda$ möglich.
+
+Zum einschränken dieser Eichfreiheit kann eine zusätzliche Gleichung frei gewählt werden. Oft wird hierfür die Coulomb-Eichung verwendet:
+
+\begin{equation}
+\label{gl:coulomb}
+\nabla \cdot \vec{A} = 0
+\end{equation}
+
+Betrachtet man nun (\ref{gl:max2}) im statischen Fall und setzt (\ref{gl:max6}) und (\ref{gl:coulomb}) ein, erhält man:
+
+\begin{align*}
+ \vec{J} &= \nabla \times \left(\frac{1}{\mu_0}\vec{B}\right) \\
+ &= \frac{1}{\mu_0} \nabla \times (\nabla\times\vec{A}) \\
+ &= \frac{1}{\mu_0} (\nabla(\underbrace{\nabla\cdot\vec{A}}_{=0}) - \nabla^2\vec{A}) \\
+ &= -\frac{1}{\mu_0}\nabla^2\vec{A} \\
+\end{align*}
+
+Hier gilt nun die Eichfreiheit nach Transformation nicht mehr:
+\begin{align*}
+\vec{J} &= -\frac{1}{\mu_0}\nabla^2\vec{A}^* \\
+&= -\frac{1}{\mu_0}\nabla^2(\vec{A}+\nabla\Lambda) \\
+&= -\frac{1}{\mu_0}\nabla^2\vec{A} - \nabla^3\Lambda \\
+&\neq -\frac{1}{\mu_0}\nabla^2\vec{A}
+\end{align*}
