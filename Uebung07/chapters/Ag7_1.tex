@@ -15,7 +15,7 @@ Diese Beziehung nutzt man aus, um einen primären Divergenzoperator \textbf{G} z
 \end{equation} 
 bestimmen. \\ \\ 
 Die im Anhang aufgeführte Methode \tt{fit\_dual\_div} macht genau diesen Vorgang, jedoch nicht für \b{G}, sondern für $\mb{\tilde{S}}$. Der Methode kann ein beliebiges kartesisches Gitter übergeben werden. Das Gitter wird durch die Parameter \tt{Nx, Ny, Nz} bestimmt, wobei \tt{Nx} die Anzahl an Unterteilungen in $x$-, \tt{Ny} die Anzahl an Unterteilungen in $y$- und \tt{Nz} die Anzahl an Unterteilungen in $z$-Richtung widerspiegeln. \\ \\ 
-Das elektrische Feld $\vec{E}(x,y,z)$ lässt sich durch die negativen partiellen Ableitung in $x$,$y$ und $z$-Richtung des Potentials berechnen, $ \vec{E}(x,y,z) = -\nabla\Phi$. In diesem Fall ist $\Phi(x,y,z) = x^2\sin(2\pi z)$ gegeben, daraus folgt das Elektrische Feld \\ \\ 
+Das elektrische Feld $\vec{E}(x,y,z)$ lässt sich durch die negativen partiellen Ableitung in $x$,$y$ und $z$-Richtung des Potentials berechnen, $ \vec{E}(x,y,z) = -\nabla\Phi$. In dem vorgestellten Fall ist $\Phi(x,y,z) = x^2\sin(2\pi z)$ gegeben, daraus folgt das Elektrische Feld \\ \\ 
 \begin{equation} 
 	\vec{E} = \begin{pmatrix} 
 	-2x\sin(2\pi z) \\ 
@@ -34,7 +34,7 @@ und
 \end{equation*} 
  
 Das Skript \tt{SkriptAg7\_1} berechnet die Potentiale auf dem gesamten Gebiet $\Omega$ und speichert diese in einem Vektor $\boldsymbol{\phi}$ ab, danach wird mit der Funktion \tt{fit\_dual\_div} $\mb{\tilde{S}}$ berechnet und $\mb{\overset{\frown}{e}}$ mit $ \mb{\overset{\frown}{e}} = \mb{\tilde{S}}^T\boldsymbol{\phi}$. \\ \\ 
-Für die weiteren Rechnungen gilt $N_x$ $=$ $N_y$ $=$ $N_z$ $=$ $21$ und folglich $Np = 9261$. Zum Berechnen von $\overset{\frown}{e}_1$ wird die erste Zeile von $\mb{\tilde{S}}^T$ mit dem Potentialvektor $\boldsymbol{\phi}$ multipliziert, aus (\ref{eq:Ableitung}) folgert man, dass abgesehen von den ersten beiden Einträgen alle weiteren Einträge des Zeilenvektors gleich null sind. Da ein Zeilen- mit einem Spaltenvektor multipliziert wird ist das Ergebnis ein skalarer Wert $\overset{\frown}{e}_1$ 
+Für die weiteren Rechnungen gilt $N_x$ $=$ $N_y$ $=$ $N_z$ $=$ $21$ und folglich $Np = 9261$. Zum Berechnen von $\overset{\frown}{e}_1$ wird die erste Zeile von $\mb{\tilde{S}}^T$ mit dem Potentialvektor $\boldsymbol{\phi}$ multipliziert, aus (\ref{eq:Ableitung}) folgert man, dass abgesehen von den ersten beiden Einträgen alle weiteren Einträge des Zeilenvektors gleich null sind. Da ein Zeilen- mit einem Spaltenvektor multipliziert wird ist das Ergebnis ein skalarer Wert
 \begin{equation} 
 \begin{split} 
 \overset{\frown}{e}_1 &=  
@@ -76,10 +76,10 @@ Die Punkte $P_1,P_2,P_{22},P_{23}$ sind durch
 	\end{pmatrix}, 
 	P_{23} = \begin{pmatrix} 
 	-0,9 \\ -0,9 \\ -1  
-	\end{pmatrix},
+	\end{pmatrix}
 \end{equation*} gegeben. Aus diesen Beispielrechnungen wird ersichtlich, wie die Rechnung mit dem Divergenzoperator funktioniert, jede Multiplikation führt zurück zu (\ref{eq:e}). 
 Die berechneten Daten für das gesamte Gebiet lassen sich mit der Simulationssoftware ParaView graphisch darstellen. In Abbildung \ref{fig:Pot} sind die entstehenden Potentiale $\phi$ zu sehen, wie erwartet ist das Potential $\phi = 0$, wenn entweder $x = 0$ gilt, oder $\sin(2\pi z) = 0$ gilt.\\ \\
-Visualisiert man das Ergebnis der Berechnung des elektrischen Feldes wie in Abbildung \ref{fig:EFeld}, so würde man erwarten, dass das elektrische Feld an den Rändern des Gebietes $\Omega$ gleich stark ist. Betrachtet man die Abbildung \ref{fig:EFeld}, so wird deutlich, dass dies nicht der Fall ist. Auch eine Veränderung der Stärke des Feldes in $y$-Richtung würde man nicht erwarten. Die Visualisierung an den Gitterpunkten ist problematisch, da es zu Verzerrungen in der Graphik kommt und durch die im nächsten Abschnitt vorgestellten Geisterkanten zu Rechenfehlern kommt.
+Visualisiert man das Ergebnis der Berechnung des elektrischen Feldes wie in Abbildung \ref{fig:EFeld}, würde man erwarten, dass das elektrische Feld an den Rändern des Gebietes $\Omega$ gleich stark ist. Betrachtet man die Abbildung \ref{fig:EFeld}, wird deutlich, dass dies nicht der Fall ist. Auch eine Veränderung der Stärke des Feldes in $y$-Richtung würde man nicht erwarten. Die Visualisierung an den Gitterpunkten ist problematisch, da es durch die im nächsten Abschnitt vorgestellten Geisterkanten zu Rechenfehlern kommt.
 \begin{figure}[h!] 
 	\centering
 	\includegraphics[width=.9\textwidth]{data/Potential} 
