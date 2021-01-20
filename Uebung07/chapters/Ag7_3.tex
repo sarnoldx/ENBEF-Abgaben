@@ -34,6 +34,7 @@ Wir betrachten im folgenden nun jedoch den allgemeinen, zeitlich veränderlichen
 (\ref{gl:max6}) impliziert (\ref{gl:max3}), da man durch Skalarmultiplikation mit dem Nabla-Operator $\nabla$
 
 \begin{align*}
+\vec{B} &= \nabla\times\vec{A} \\
 \nabla \cdot \vec{B} &= \nabla \cdot (\nabla\times\vec{A}) \\
 \nabla \cdot \vec{B} &= 0
 \end{align*}
@@ -43,12 +44,13 @@ erhält. Die Schreibweise $\nabla \cdot (\nabla\times\vec{A})$ ist hierbei äqui
 Ebenso impliziert (\ref{gl:max5}) die Gleichung (\ref{gl:max1}). Hierzu bildet man das Vektorprodukt mit dem Nabla-Operator $\nabla$ auf beiden Seiten der Gleichung:
 
 \begin{align*}
+\vec{E} &= -\partial_t\vec{A} - \nabla\Phi \\
 \nabla \times \vec{E} &= \nabla \times (-\partial_t\vec{A} - \nabla\Phi) \\
- &= \nabla \times (-\partial_t\vec{A}) - \nabla \times(\nabla\Phi) \\
- &= \nabla \times (-\partial_t\vec{A}) \\
- &= -\partial_t (\nabla \times \vec{A}) \\
- &= -\partial_t \vec{B} \\
+\nabla \times \vec{E} &= \nabla \times (-\partial_t\vec{A}) - \nabla \times(\nabla\Phi) \\
+\nabla \times \vec{E} &= \nabla \times (-\partial_t\vec{A}) \\
+\nabla \times \vec{E} &= -\partial_t (\nabla \times \vec{A}) \\
+\nabla \times \vec{E} &= -\partial_t \vec{B} \\
 \end{align*}
 
-Angewendet wurde die Rechenregel $\nabla \times(\nabla\Phi) = \operatorname{rot}\operatorname{grad}\Phi = \vec{0} $, ebenso wurde die (\ref{gl:max6}) im letzten Schritt eingesetzt, um wieder auf $\vec{B}$ zu kommen.
+Angewendet wurde die Rechenregel $\nabla \times(\nabla\Phi) = \operatorname{rot}\operatorname{grad}\Phi = \vec{0} $, ebenso wurde Gleichung (\ref{gl:max6}) im letzten Schritt eingesetzt, um wieder auf $\vec{B}$ zu kommen.
 
