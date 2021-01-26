@@ -1,0 +1,16 @@
+\chapter{titlsade}
+\section{Geschichteter Kondensator}
+
+Ein geschichteter Plattenkondensator lässt sich mit verschiedenen Programmen graphisch darstellen und analysieren. Während FEMM auf eine zwei Dimensionale Darstellung des Problems beschränkt ist, lassen sich mit Hilfe der Methode der Finiten Integration (FIT) und einem geeigneten Simulationsprogramm drei Dimensionale Darstellungen erzeugen. Das angehängte Skript \tt{SkriptAg8\_2} bildet den Vorgang der FIT ab, die Ergebnisse werden in ParaView graphisch dargestellt.\\ \\
+Zur Berechnung wird das Gebiet $\Omega = \{-1,1\}^3$ betrachtet, es gilt $N_x = N_y = N_z = 21$ und damit $Np = 9261$, dieses Gebiet wird kanonisch nummeriert. Allgemein wird ein Plattenkondensator mit linear-variierender Permittivität nachgestellt, die unterschiedlichen Permittivitäten werden mit der Methode \tt{calc\_eps\_linear} bestimmt und in einem Vektor gespeichert. Des Weiteren ist an den Knoten, die die Elektroden widerspiegeln eine \textsc{Dirichlet}-Randbedingung vorgegeben. Das Potential an diesen Knoten beträgt jeweils \SI{0}{\volt} bzw. \SI{1}{\volt}. Das elektrische Feld und die Potentiale zwischen den beiden Elektroden gilt es zu berechnen. \\ \\
+Die Methode \tt{createMeps} liefert die zur Rechnung benötigte Matrix $\mb{M}_\epsilon$, sie führt eine Materialmittlung durch. Um nun alle Potentiale in dem Gebiet $\Omega$ zu berechnen, muss das Gleichungssystem 
+\begin{equation}
+	\tilde{\mb{S}}\mb{M}_\epsilon\tilde{\mb{S}}^T\mb{\Phi} = 0
+	\label{eq:meps}
+\end{equation} berechnet werden. Zur Vereinfachung nimmt man an, dass $\mb{A} = \tilde{\mb{S}}\mb{M}_\epsilon\tilde{\mb{S}}^T$ gilt. Durch diese Rechnung wird garantiert, dass nur im Rechengebiet befindliche Gitterkanten und keine Geisterkanten beachtet werden, die Struktur der Matrix ist in Abbildung ?? zu sehen.\\ \\
+In $\mb{\Phi}$ befinden sich sowohl die bekannten Potentiale der Randbedingungen, als auch die noch unbekannten Potentiale. Ist das Potential $\phi_n$ an einem Knoten $P_n$ des Gitters bekannt, so kann die $n$-te Zeile und Spalte der Matrix \b{A} gestrichen werden, sowie der $n$-te Eintrag aus dem Vektor $\mb{\Phi}$.\\
+Die $n$-te Spalte, abzüglich des Eintrags in der $n$-ten Zeile, der Matrix \b{A} wird auf der anderen Seite des Gleichungssystems (\ref{eq:meps}) abgezogen und mit dem bekannten $\phi_n$ multipliziert. Führt man dies nun für alle Punkte durch, bei denen die Randbedingung bekannt ist, so entsteht ein Gleichungssystem der Form 
+\begin{equation*}
+	\mb{A}_{11}\mb{x}_1 = -\mb{A}_{12}\mb{x}_2,
+\end{equation*} 
+wobei in $\mb{x}_1$ alle nicht bekannten und in $\mb{x}_2$ alle bekannten Potentiale gespeichert sind. $\mb{x}_1$ lässt sich nun in Matlab ganz einfach mit $$\mb{x}_1 = -\mb{A}_{11}\backslash\mb{A}_{12}\mb{x}_2$$ berechnen. Der Potentialvektor $\mb{\Phi}$ kann aus $\mb{x}_1$ und $\mb{x}_2$ in der richtigen Reihenfolge bestimmt werden. Das dazugehörige elektrische Feld mit  
