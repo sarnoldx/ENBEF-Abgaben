@@ -114,7 +114,7 @@ function L = SIS (Amps)
   mo_addcontour(82.5,0);
   mo_addcontour(165,0);
   B = mo_lineintegral(0);
-  L = ((B(1,2)*8)*(3*0.0825))/Amps;
+  L = ((B(1,2))*(3*0.0825))/Amps;
   
   
   

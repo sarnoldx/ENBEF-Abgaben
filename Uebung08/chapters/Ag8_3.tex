@@ -36,7 +36,26 @@ Weist man dem Eisenjoch eine nichtlineare Materialbeziehung zu ergibt sich darau
 	\end{subfigure}	
 \end{figure}
 
-Mit Hilfe der Daten aus der FEMM-Simulation lässt sich die Induktivität der Apertur bestimmen. Wie in Abbildung \ref{fig:plot} zu sehen ist, nimmt die Induktivität kontinuierlich ab, sobald eine Stromanregung von etwa $\SI{6000}{A}$ angelegt wird. 
+Über die Funktion \texttt{lineintegral} lässt sich die durchschnittliche Flussdichte über einen bestimmten Bereich berechnen. Mit 
+
+\begin{equation*}
+	L = \frac{\Psi}{I}
+\end{equation*}
+
+und
+
+\begin{equation*}
+	\Psi = \int_{A} \vec{B} \mathrm{d}\vec{A}
+\end{equation*}
+
+ergibt sich die Induktivität zu
+
+\begin{equation*}
+	L = \frac{B A}{I}
+\end{equation*}
+ 
+
+ Wie in Abbildung \ref{fig:plot} zu sehen ist, nimmt die Induktivität kontinuierlich ab, sobald eine Stromanregung von etwa $\SI{6000}{A}$ angelegt wird da dann der Eisenkern in Sättigung geht.
 
 
 \begin{figure}[h]
