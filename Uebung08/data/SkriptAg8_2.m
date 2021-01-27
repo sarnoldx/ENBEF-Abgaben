@@ -1,10 +1,10 @@
-Nx = 21;
-Ny = 21;
-Nz = 21;
+Nx = 5;
+Ny = 5;
+Nz = 5;
 Np = Nx*Ny*Nz;
-xmesh = [-1:0.1:1];
-ymesh = [-1:0.1:1];
-zmesh = [-1:0.1:1];
+xmesh = [-1:0.5:1];
+ymesh = [-1:0.5:1];
+zmesh = [-1:0.5:1];
 
 
 eps_r = calc_eps_linear(1,2,Nx,Ny,Nz);
@@ -45,5 +45,5 @@ idxV = zeros((Nx-1)*(Ny-1)*(Nz-1),1);
  end
  
 ebar=fit_pe2pc(xmesh,ymesh,zmesh,e,idxV);
-fit_write_vtk(xmesh,ymesh,zmesh,'kondensator2.vtr',{'Phi (V)',x},{'ebar (V/m)',ebar(idxV,1:3)});
+%fit_write_vtk(xmesh,ymesh,zmesh,'kondensator10.vtr',{'Phi (V)',x},{'ebar (V/m)',ebar(idxV,1:3)});
 

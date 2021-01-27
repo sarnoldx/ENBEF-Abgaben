@@ -42,8 +42,6 @@ function L = SIS (Amps)
   mi_clearselected;
   
   
-  
-  
   %Spule
   mi_drawarc(76.36,1.17,76.36,7.17,180,10);
   mi_drawarc(76.36,7.17,76.36,1.17,180,10);

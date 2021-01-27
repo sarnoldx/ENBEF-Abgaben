@@ -5,7 +5,7 @@ counter = 1;
  %   counter = counter + 1;
 %end  
 plot(result);
-ylabel('Induktivität in H');
+ylabel('Induktivitaet in H');
 xlabel('Strom in A');
 xtick=get(gca,'xtick');
 xTickLabels = cellstr(num2str(100*xtick(:)));
