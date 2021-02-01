@@ -29,3 +29,4 @@ for p = 1 : Np
 end
 
 Ss = [Px,Py,Pz];
+sparse(Ss);
