@@ -53,6 +53,7 @@ indxT = [nx;ny;nz];
 
 j = (h/5)^2*(indxOmega1+indxOmega2);
 j = sparse(j);
+j1 = j;
 
 Mny = createMny(xmesh,ymesh,zmesh,ones(Np,1));
 [C,S,Ss] = fit_operator(Nx,Ny,Nz);
@@ -84,6 +85,8 @@ end
 b = C*a1;
 
 %fit_write_vtk(xmesh, ymesh, zmesh, 'harry.vtr', {'j',j;'b',b})
+
+L = j1' * a1;
 
 
 
