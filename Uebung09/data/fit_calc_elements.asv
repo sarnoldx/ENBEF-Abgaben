@@ -46,9 +46,9 @@ end
 
 dS = [dx dy dz];
 
-ddx = sparse(Np,1);
-ddy = sparse(Np,1);
-ddz = sparse(Np,1);
+ddx = zeros(Np,1);
+ddy = zeros(Np,1);
+ddz = zeros(Np,1);
 
 z = 1;
 for i = 1 : Np
