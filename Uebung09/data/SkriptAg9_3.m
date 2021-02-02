@@ -1,19 +1,19 @@
 clear;
-Nx = 41;
-Ny = 41;
-Nz = 41;
+Nx = 2;
+Ny = 9;
+Nz = 9;
 Np = Nx*Ny*Nz;
 
-xmesh = [0:0.5:20];
-ymesh = [0:1:40];
-zmesh = [0:0.5:20];
+xmesh = [0:20:20];
+ymesh = [0:5:40];
+zmesh = [0:2.5:20];
 
 nx = sparse(Np,1);
 ny = sparse(Np,1);
 nz = sparse(Np,1);
 
-indxOmega1 = sparse(Np,1);
-indxOmega2 = sparse(Np,1);
+indxOmega1 = sparse(3*Np,1);
+indxOmega2 = sparse(3*Np,1);
 stepY = calc_steps(Ny,40);
 stepZ = calc_steps(Nz,20);
 h = calc_steps(Nx,20);
@@ -58,8 +58,32 @@ Mny = createMny(xmesh,ymesh,zmesh,ones(Np,1));
 [C,S,Ss] = fit_operator(Nx,Ny,Nz);
 K = C'*Mny*C;
 
+%Loesche Rand raus
+l = 0;
+for i=length(indxT):-1:1
+  if indxT(i) == 1
+    K(i,:)=[];
+    K(:,i)=[];
+    j(i,:)=[];
+    l = l+1;
+  end
+end
+
 a = K\j;
 
+%Fuege Rand wieder hinzu
+a1 = sparse(length(indxT),1);
+counter = 1;
+for i=1:length(indxT)
+  if indxT(i) == 0
+    a1(i) = a(counter);
+    counter = counter +1;
+  end
+end
+
+b = C*a1;
+
+fit_write_vtk(xmesh, ymesh, zmesh, 'harry.vtr', {'j',j;'b',b})
 
 
 
