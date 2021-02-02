@@ -83,7 +83,7 @@ end
 
 b = C*a1;
 
-fit_write_vtk(xmesh, ymesh, zmesh, 'harry.vtr', {'j',j;'b',b})
+%fit_write_vtk(xmesh, ymesh, zmesh, 'harry.vtr', {'j',j;'b',b})
 
 
 

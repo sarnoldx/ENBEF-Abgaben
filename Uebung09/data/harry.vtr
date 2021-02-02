@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<VTKFile type="RectilinearGrid" version="0.1" byte_order="LittleEndian">
+<RectilinearGrid WholeExtent="0 1 0 8 0 8">
+<Piece Extent="0 1 0 8 0 8">
+<PointData>
