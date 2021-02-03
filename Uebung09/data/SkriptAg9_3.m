@@ -53,40 +53,38 @@ indxT = [nx;ny;nz];
 
 j = (h/5)^2*(indxOmega1+indxOmega2);
 j = sparse(j);
-j1 = j;
+jr = j;
 
 Mny = createMny(xmesh,ymesh,zmesh,ones(Np,1));
 [C,S,Ss] = fit_operator(Nx,Ny,Nz);
 K = C'*Mny*C;
 
 %Loesche Rand raus
-l = 0;
 for i=length(indxT):-1:1
   if indxT(i) == 1
     K(i,:)=[];
     K(:,i)=[];
     j(i,:)=[];
-    l = l+1;
   end
 end
 
 a = K\j;
 
 %Fuege Rand wieder hinzu
-a1 = sparse(length(indxT),1);
+ar = sparse(length(indxT),1);
 counter = 1;
 for i=1:length(indxT)
   if indxT(i) == 0
-    a1(i) = a(counter);
+    ar(i) = a(counter);
     counter = counter +1;
   end
 end
 
-b = C*a1;
+b = C*ar;
 
 %fit_write_vtk(xmesh, ymesh, zmesh, 'harry.vtr', {'j',j;'b',b})
 
-L = j1' * a1;
+L = jr' * ar;
 
 
 

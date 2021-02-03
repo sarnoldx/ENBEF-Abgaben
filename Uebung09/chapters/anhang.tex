@@ -1,0 +1,109 @@
+\section{Anhang}
+\lstset{ % Octave Settings
+	language=Octave,
+	extendedchars=true,
+	basicstyle=\footnotesize,
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	stepnumber=1,
+	numbersep=10pt,
+	showspaces=false,
+	showstringspaces=false,
+	tabsize=2,
+	breaklines=true,
+	frame=single,
+	morecomment = [l][\itshape\color{blue}]{\%},
+	captionpos=b,
+	title=\lstname
+}
+
+\subsection*{Skript Aufgabe 9.3}
+\begin{lstlisting}[caption={Berechnung der Aufgaben 9.3 a) bis g)}, label=ag3]
+clear;
+Nx = 2;
+Ny = 9;
+Nz = 9;
+Np = Nx*Ny*Nz;
+
+xmesh = [0:20:20];
+ymesh = [0:5:40];
+zmesh = [0:2.5:20];
+
+nx = sparse(Np,1);
+ny = sparse(Np,1);
+nz = sparse(Np,1);
+
+indxOmega1 = sparse(3*Np,1);
+indxOmega2 = sparse(3*Np,1);
+stepY = calc_steps(Ny,40);
+stepZ = calc_steps(Nz,20);
+h = calc_steps(Nx,20);
+
+
+n = 1;
+for z = 1 : Nz
+for y = 1 : Ny
+for x = 1 : Nx
+if (z*stepZ >= 7.5 && z*stepZ <= 12.5)
+if (y*stepY >= 10 && y*stepY <= 15)
+indxOmega1(n) = 1;
+end
+if (y*stepY >= 25 && y*stepY <= 30)
+indxOmega2(n) = -1;
+end
+
+end
+if (x < Nx) && ((y == 1) || (y == Ny) || (z == 1) || (z == Nz))  
+nx(n) = 1;
+end
+
+if (y < Ny) && ((x == 1) || (x == Nx) || (z == 1) || (z == Nz))  
+ny(n) = 1;
+end
+
+if (z < Nz) && ((x == 1) || (x == Nx) || (y == 1) || (y == Ny))  
+nz(n) = 1;
+end
+
+n = n+1;
+end
+end
+end
+
+indxT = [nx;ny;nz];
+
+j = (h/5)^2*(indxOmega1+indxOmega2);
+j = sparse(j);
+jr = j;
+
+Mny = createMny(xmesh,ymesh,zmesh,ones(Np,1));
+[C,S,Ss] = fit_operator(Nx,Ny,Nz);
+K = C'*Mny*C;
+
+%Loesche Rand raus
+for i=length(indxT):-1:1
+if indxT(i) == 1
+K(i,:)=[];
+K(:,i)=[];
+j(i,:)=[];
+end
+end
+
+a = K\j;
+
+%Fuege Rand wieder hinzu
+ar = sparse(length(indxT),1);
+counter = 1;
+for i=1:length(indxT)
+if indxT(i) == 0
+ar(i) = a(counter);
+counter = counter +1;
+end
+end
+
+b = C*ar;
+
+%fit_write_vtk(xmesh, ymesh, zmesh, 'b-Fluss.vtr', {'j',j;'b',b})
+
+L = jr' * ar;
+\end{lstlisting}
