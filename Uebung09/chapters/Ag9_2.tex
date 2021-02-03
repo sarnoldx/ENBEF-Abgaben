@@ -1,0 +1,18 @@
+\chapter{Materialmatrix}
+
+Um ein allgemeines magnetostatisches Problem zu lösen benötigt man die Materialmatrix der Reluktivitäten $\textbf{M}_\nu$. Im folgenden werden in jeder Elementarzelle homogene Materialeigenschaften angenommen. Daher lässt sich mit der gemittelten Reluktivität $\bar{\nu}_n$ zwischen zwei benachbarten Zellen, jedes Element $\textbf{M}_\nu (n,n)$ näherungsweise mit 
+
+\begin{equation*}
+	\frac{\int_{\tilde{L}_n} \vec{H} \mathrm{d}\vec{s}}{\int_{A_n} \vec{B} \mathrm{d}\vec{A}} \approx \frac{\bar{\nu}_n |\tilde{L}_n|}{|A_n|} =: \textbf{M}_\nu(n,n)
+\end{equation*}
+
+bestimmen.
+Die dabei entstehende Matrix $\textbf{M}_\nu$ hat Diagonalform.
+
+Die MATLAB Routine \texttt{fit\_calc\_elements} (siehe Code(\ref{kanten})) berechnet die primalen und dualen Flächeninhalte \texttt{dA} und \texttt{ddA} sowie die Kantenlängen \texttt{ds} und \texttt{dds} in Abhängigkeit von den vorgegebenen Gittergrößen \texttt{xmesh, ymesh} und \texttt{zmesh}. Die primalen Kanten entlang einer Achsenrichtung haben alle die selbe Länge \texttt{stepw}, die dualen Kanten berechnen sich je zur Hälfte aus den daneben liegenden primalen Kanten. Daraus folgt das duale Kanten am Rand des Rechengebiets genau halb so lang sind wie die Kanten im Inneren. Die jeweiligen Flächeninhalte ergeben sich aus der Multiplikation der Kantenlänge der angrenzenden Kanten. 
+
+Die Funktion \texttt{fit\_calc\_avgny} (siehe Code (\ref{mittel})) ermittelt den Mittelwert der Reluktiviät zwischen zwei beliebigen, benachbarten Zellen.
+
+Mit Hilfe der zwei schon genannten Funktionen gibt die Funktion \texttt{createMny} (siehe Code(\ref{Matmatrix})) die Materialmatrix $\textbf{M}_\nu$ zurück. Die Einträge sind dabei in $x-$, $y-$ und $z-$Richtung sortiert.
+
+Da am Rand des Rechengebiets zur Mittelung der Reluktivität, zur Hälfte eine nicht vorhandene Zelle mit Reluktivität $\nu = 0$, in die Rechnung einfließt gibt es hier eine kleine Ungenauigkeit und $\bar{\nu}$ ist hier kleiner als es eigentlich sein sollte. 
