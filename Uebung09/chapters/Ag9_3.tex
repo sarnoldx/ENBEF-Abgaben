@@ -13,20 +13,20 @@ gilt.
 	\label{fig:problem}
 \end{figure}
 
-Für die Simulation wird ein äquidistantes Rechengitter definiert. Wir haben uns dazu entschieden zu Testzwecken zunächst einmal ein sehr grobes Gitter zu wählen, mit Anzahl Knoten $N_x=2, N_y=9, N_z=9$ und einer Schrittweite $h_x=20\si{\centi\meter},h_y=5\si{\centi\meter},h_z=2,5\si{\centi\meter}$ (siehe Code (\ref{ag3})). Mithilfe der zuvor geschriebenen Methoden \texttt{fit\_operator} wird der benötigte FIT-Operator $C$ erzeugt. Es folgt die Bestimmung der Indexmenge \texttt{indxT} aller Randkanten, die wir als Vektor definiert haben. Hierbei werden erst alle Kanten in x-Richtung durch gegangen, daran angehängt die in y- und z-Richtung. Im Vektor steht nun entweder eine $1$, falls die Kante eine Randkante ist, ansonsten eine $0$.
+Für die Simulation wird ein äquidistantes Rechengitter definiert. Wir haben uns dazu entschieden zu Testzwecken zunächst einmal ein sehr grobes Gitter zu wählen, mit Anzahl Knoten $N_x=2, N_y=9, N_z=9$ und einer Schrittweite $h_x=20\si{\centi\meter},h_y=5\si{\centi\meter},h_z=2,5\si{\centi\meter}$ (siehe Code (\ref{ag3})). Mithilfe der zuvor geschriebenen Methoden \texttt{fit\_operator} (\ref{fit}) wird der benötigte FIT-Operator $\mb{C}$ erzeugt. Es folgt die Bestimmung der Indexmenge \texttt{indxT} aller Randkanten, die wir als Vektor definiert haben. Hierbei werden erst alle Kanten in x-Richtung durch gegangen, daran angehängt die in y- und z-Richtung. Im Vektor steht nun entweder eine $1$, falls die Kante eine Randkante ist, ansonsten eine $0$.
 
 Ähnlich wird bei Bestimmung des Anregungsvektors $\vec{j}$ vorgegangen. Der Vektor wird am Index einer Kante, die zum einen in $\Omega_1$ oder $\Omega_2$ liegt und zusätzlich in Stromrichtung (also x-Richtung) zeigt, auf $\pm1$ gesetzt. Anschließend wird der Vektor noch mit dem Faktor $\left(\dfrac{h_x}{5\si{\centi\meter}}\right)^2$ multipliziert.
 
 Nun soll die Gleichung
 \begin{equation}
 \label{Kaj}
-	K\vec{a} = \vec{j} \qquad \text{mit } K = C^TM_vC
+	\mb{K}\vec{a} = \vec{j} \qquad \text{mit } \mb{K} = \mb{C}^T\mb{M}_v\mb{C}
 \end{equation}
-gelöst werden. Hierzu wird zunächst noch mithilfe der schon geschriebenen Routine \texttt{createMny} die Matrix $M_v$ erzeugt. Das magnetische Vektorpotential $\vec{a}$ enthält momentan schon Werte die uns bekannt sind, jene, die durch die Randbedingung (\ref{rand}) festgelegt sind. Es wird eine Zerlegung des Gleichungssystems in Bekannte und Unbekannte vorgenommen. Hierzu werden aus dem Gleichungssystem (\ref{Kaj}) alle Gleichungen entfernt die Randkanten beschreiben. Mithilfe des Vektors \texttt{indxT} werden in $K$ und $\vec{j}$ alle Zeilen (bzw. bei $K$ auch die Spalten) gelöscht, die dem Index einer Randkante entsprechen. Das verkleinerte Gleichungssystem lässt sich nun eindeutig lösen. Die Randbedingung fungiert als eine Form von Eichung.
+gelöst werden. Hierzu wird zunächst noch mithilfe der schon geschriebenen Routine \texttt{createMny} (\ref{Matmatrix}) die Matrix $\mb{M}_v$ erzeugt. Das magnetische Vektorpotential $\vec{a}$ enthält momentan schon Werte die uns bekannt sind, jene, die durch die Randbedingung (\ref{rand}) festgelegt sind. Es wird eine Zerlegung des Gleichungssystems in Bekannte und Unbekannte vorgenommen. Hierzu werden aus dem Gleichungssystem (\ref{Kaj}) alle Gleichungen entfernt die Randkanten beschreiben. Mithilfe des Vektors \texttt{indxT} werden in $\mb{K}$ und $\vec{j}$ alle Zeilen (bzw. bei $\mb{K}$ auch die Spalten) gelöscht, die dem Index einer Randkante entsprechen. Das verkleinerte Gleichungssystem lässt sich nun eindeutig lösen. Die Randbedingung fungiert als eine Form von Eichung.
 
 Zuletzt können nun noch die beiden Gleichungen
 \begin{align*}
-\vec{b} &= C\vec{a},\\
+\vec{b} &= \mb{C}\vec{a},\\
 L &= (\vec{j})^T \dfrac{\vec{a}}{I^2}
 \end{align*}
 berechnet werden (siehe Code (\ref{ag3}))
