@@ -4,9 +4,9 @@ My = Nx;
 Mz = Ny * Nx;
 Np = Nx * Ny * Nz;
 
-Px = sparse(Np,Np);
-Py = sparse(Np,Np);
-Pz = sparse(Np,Np);
+Px = zeros(Np,Np);
+Py = zeros(Np,Np);
+Pz = zeros(Np,Np);
 
 for p = 1 : Np
     for q = 1 : Np
@@ -27,11 +27,11 @@ for p = 1 : Np
     end
 end
 
-C = [sparse(Np,Np) -Pz Py; Pz sparse(Np,Np) -Px; -Py Px sparse(Np,Np)];
-C = sparse(C);
+C = [zeros(Np,Np) -Pz Py; Pz zeros(Np,Np) -Px; -Py Px zeros(Np,Np)];
+%C = sparse(C);
 S = [Px Py Pz];
-S = sparse(S);
+%S = sparse(S);
 Ss = [-Px' -Py' -Pz'];
-Ss = sparse(Ss);
+%Ss = sparse(Ss);
 
 

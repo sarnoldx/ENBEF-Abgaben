@@ -1,0 +1,57 @@
+\chapter{Ausarbeitung der Aufgaben}
+\section{Rotationsoperator}
+Zur numerischen Berechnung der allgemeinen Vektordifferentialgleichung der Magnetostatik $$ \m{rot}\left( \mu^-1(\vec{r})\m{rot}\vec{A}(\vec{r})\right) = \vec{J}(\vec{r}) $$ wird der Rotationsoperator benötigt. Dieser lässt sich, wie schon der Divergenzoperator, mit dem diskretisierten partiellen Ableitungsoperator
+\begin{equation} 
+(\mb{P}_w)_{p,q} := \delta_{p+M_w,q} - \delta{p,q} =  
+\begin{cases} 
+-1 & \m{für    }  q = p \\ 
++1 & \m{für    }  q = p + M_w \\ 
+0 & \m{sonst}	 
+\end{cases}, \m{wobei } w = x,y,z 
+\label{eq:Ableitung} 
+\end{equation}  bestimmen. Es lassen sich nun unterschiedliche Operatoren erzeugen, zunächst der Rotationsoperator 
+\begin{equation*}
+	\mb{C} = 
+	\begin{bmatrix}
+	\mb{0} & -\mb{P}_z & \mb{P}_y \\
+	\mb{P}_z & \mb{0} & -\mb{P}_x \\
+	-\mb{P}_y & \mb{P}_x & \mb{0}
+	\end{bmatrix},
+\end{equation*} der diskrete div-Operator auf dem primalen Gitter 
+\begin{equation*}
+	\mb{S} = \begin{bmatrix}
+	\mb{P}_x & \mb{P}_y & \mb{P}_z
+	\end{bmatrix},
+\end{equation*} sowie der duale Divergenzoperator
+\begin{equation*}
+\tilde{\mb{S}} = \begin{bmatrix}
+-\mb{P}_x^T & -\mb{P}_y^T & -\mb{P}_z^T
+\end{bmatrix}.
+\end{equation*}\\ \\
+Die angehängte Methode \tt{fit\_operator} berechnet diese Operatoren auf einem der Methode übergebenen Gebiet und liefert sie zurück. \\
+Allgemein gilt $\nabla\cdot(\nabla\times\vec{A}) = 0$, diese Identität lässt sich auch mit den primalen Rotations- und Divergenzoperator nachprüfen. Multipliziert man den Divergenzoperator \b{S} auf den Rotationsoperator ergibt sich
+\begin{equation}
+	\begin{split}
+		\mb{SC} &= \begin{bmatrix}
+		\mb{P}_x & \mb{P}_y & \mb{P}_z
+		\end{bmatrix} \cdot
+		\begin{bmatrix}
+		\mb{0} & -\mb{P}_z & \mb{P}_y \\
+		\mb{P}_z & \mb{0} & -\mb{P}_x \\
+		-\mb{P}_y & \mb{P}_x & \mb{0}
+		\end{bmatrix}\\\\
+		&= \begin{bmatrix}
+		\mb{P}_y\mb{P}_z-\mb{P}_z\mb{P}_y & & -\mb{P}_x\mb{P}_z+\mb{P}_z\mb{P}_x & & \mb{P}_x\mb{P}_y-\mb{P}_y\mb{P}_x
+	\end{bmatrix}.
+	\end{split}
+	\label{eq:SC}
+\end{equation}
+Nutzt man nun die Eigenschaften des Satz von Schwarz und der Kommutativität zweier Matrizen aus, so lässt sich die (\ref{eq:SC}) als 
+\begin{equation}
+	\mb{SC} = \begin{bmatrix}
+	\mb{P}_y\mb{P}_z-\mb{P}_y\mb{P}_z& &-\mb{P}_x\mb{P}_z+\mb{P}_x\mb{P}_z& &\mb{P}_x\mb{P}_y-\mb{P}_x\mb{P}_y
+	\end{bmatrix}
+\end{equation} schreiben, wodurch sich $$\mb{SC} = \begin{bmatrix}
+0 & 0 & 0
+\end{bmatrix}$$ ergibt.\\\\
+Interpretiert man das Ergebnis geometrisch, wird über jede Fläche eines Volumens integriert. Hierzu wird jede Fläche über Kantenintegrale ausgedrückt. Unter Beachtung der Flächennormalen und der damit verbundenen Integrationsrichtung wird über jede Kante zweimal in unterschiedlicher Richtung integriert. Somit heben sich diese auf, wodurch die ganze Rechnung einen Nullvektor erzeugt.
