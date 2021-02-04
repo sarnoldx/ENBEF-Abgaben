@@ -30,6 +30,7 @@ jdof  = jsrc(idxdof);
  
 % Reluktivitaet 
 mu0 = 4*pi*10^-7;
+murE = 1000;
 nu  = ones(Np,1)/mu0;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,10 +38,10 @@ nu  = ones(Np,1)/mu0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Loese lineares Problem
-nu(idxiron) = ...; 
-Mnu         = createMnu(...);
-K           = ...;
-Kdof        = K(...);
+nu(idxiron) = 1/(mu0*murE); 
+Mnu         = spdiags(nu,0,3*np,3*np);
+K           = C'*Mnu*C;
+Kdof        = K(idxdof);
 Zdof        = sparse(1:size(Kdof,1),1:size(Kdof,2),sqrt(diag(Kdof)));
 a           = zeros(3*Np,1);
 a(idxdof)   = pcg(Kdof,jdof,1e-7,1000,Zdof,Zdof);
@@ -72,7 +73,7 @@ i    = 0;
 while (i<2) | ...
 	
 	% update der Variablen
-	aold=...;
+	aold=a;
 	i=...;
 	fprintf('Iteration %d\n',i);
 	
