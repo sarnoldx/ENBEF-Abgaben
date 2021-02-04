@@ -5,6 +5,7 @@ load trafo_linear.mat;
 nx = length(prb.xmesh);
 ny = length(prb.ymesh); 
 nz = length(prb.zmesh);
+np = nx*ny*nz;
 
 % get and shrink conductivity matrix
 Msigma = prb.Msigma;
@@ -13,11 +14,11 @@ M = Msigma;
 
 % ---- do something here ---- 
 % construct curl-matrix
-C = sparse(3*nx*ny*nz,3*nx*ny*nz);
+C = fit_operator(nx,ny,nz);
 % ---- do something here ---- 
 
 % create and shrink curl-curl matrix
-K = C'*diag(prb.Nu)*C;
+K = C'*spdiags(prb.Nu,0,3*np,3*np)*C;
 K = K(prb.idxdof,prb.idxdof);
 
 % get and shrink excitation matrix
@@ -47,7 +48,12 @@ for jj=2:length(T)
 
   % ---- do something here ---- 
   % solve M*a'+K*a=X*i with the implicit Euler method 
-  a(:,jj)=a(:,jj);  
+  h = (1/0.001);
+  A = h*M+K;
+  b = X*i(T(jj)) + h*M*a(:,jj-1);
+  %x = a(:,jj);
+  a(:,jj) = pcg(A,b,1e-6,1000,Z,Z);
+  %a(:,jj)=a(:,jj);
   % ---- do something here ---- 
 
 end
@@ -55,24 +61,24 @@ end
 
 % Postprocessing 1: plot the current excitation i(t)
 % ---- do something here ---- 
-plot(0,0);
+plot(i(T(:)));
  % ---- do something here ---- 
 
-% Postprocessing 2: return the fluxes B!
-A = zeros(length(prb.ds),1);
-B = zeros(length(prb.ds),1);
-for jj=1:length(T)
-  A(prb.idxdof) = a(:,jj);
-  
-  % ---- do something here ---- 
-  % compute the facet integrated fluxes b
-  B = 0*A; 
-  % ---- do something here ---- 
-    
-  % scaling and write to file
-  A(prb.idxs) = A(prb.idxs)./prb.ds(prb.idxs); 
-  B(prb.idxA) = B(prb.idxA)./prb.dA(prb.idxA); 
-  fit_write_vtk (prb.xmesh,prb.ymesh,prb.zmesh,['solution_' num2str(jj,'%03d') '.vtr'],...
-                 {'MVP',A;'Flux',B},{'Region',prb.Elem(prb.idxV);});
-end
+ % Postprocessing 2: return the fluxes B!
+ A = zeros(length(prb.ds),1);
+ B = zeros(length(prb.ds),1);
+ for jj=1:length(T)
+   A(prb.idxdof) = a(:,jj);
+   
+   % ---- do something here ---- 
+   % compute the facet integrated fluxes b
+   B = C*A; 
+   % ---- do something here ---- 
+     
+   % scaling and write to file
+   A(prb.idxs) = A(prb.idxs)./prb.ds(prb.idxs); 
+   B(prb.idxA) = B(prb.idxA)./prb.dA(prb.idxA); 
+   fit_write_vtk (prb.xmesh,prb.ymesh,prb.zmesh,['solution_' num2str(jj,'%03d') '.vtr'],...
+                  {'MVP',A;'Flux',B},{'Region',prb.Elem(prb.idxV);});
+ end
 % visualize the result in Paraview, e.g. onprb a cutplane
