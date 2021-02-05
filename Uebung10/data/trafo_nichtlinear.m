@@ -39,15 +39,16 @@ nu  = ones(Np,1)/mu0;
 
 % Loese lineares Problem
 nu(idxiron) = 1/(mu0*murE); 
-Mnu         = spdiags(nu,0,3*np,3*np);
+Mnu         = createMny(prb.xmesh',prb.ymesh',prb.zmesh',nu);
 K           = C'*Mnu*C;
-Kdof        = K(idxdof);
+Kdof        = K(idxdof(:),idxdof(:));
+Kdof = sparse(Kdof);
 Zdof        = sparse(1:size(Kdof,1),1:size(Kdof,2),sqrt(diag(Kdof)));
 a           = zeros(3*Np,1);
 a(idxdof)   = pcg(Kdof,jdof,1e-7,1000,Zdof,Zdof);
 
 % berechne magnetische Flusse im Volumen
-b           = ...;
+b           = C*a;
 B           = zeros(3*Np,1);
 B(idxA)     = b(idxA)./dA(idxA);
 Bc          = fit_pf2pc(xmesh,ymesh,zmesh,B,idxV);
@@ -58,49 +59,49 @@ fit_write_vtk(xmesh,ymesh,zmesh,['trafo_iter' num2str(0) '.vtr'],{},{'Flussdicht
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Nichtlinear 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Parameter fuer Brauer's Kurve
-k1  = 0.3774;
-k2  = 2.970; 
-k3  = 388.33;
-
-% Startwerte fuer die Fixpunktiteration 
-aold = zeros(3*Np,1);
-a    = zeros(3*Np,1);
-i    = 0;
-
-% Fixpunkt iteration
-while (i<2) | ...
-	
-	% update der Variablen
-	aold=a;
-	i=...;
-	fprintf('Iteration %d\n',i);
-	
-	% berechne magnetische Flusse im Volumen
-	b       = ...;
-	B       = zeros(3*Np,1);
-	B(idxA) = b(idxA)./dA(idxA);
-	Bc      = fit_pf2pc(xmesh,ymesh,zmesh,B,idxV);
-	
-	% Auswertung der Materialkurve
-	Biron   = sqrt(sum( Bc(idxiron,:).^2, 2) );
-	nu(idxiron) = ...;
-	
-	% Update der Materialmatrix
-	Mnu = createMnu(...);
-
-	% create and shrink curl-curl matrix
-	K = ...;
-	Kdof = K(...);
-
-	% loese GLS
-	Zdof = sparse(1:size(Kdof,1),1:size(Kdof,2),sqrt(diag(Kdof)));
-	a(idxdof) = pcg(Kdof,jdof,1e-7,1000,Zdof,Zdof,a(idxdof));
-
-	% Ausgabe
-	fit_write_vtk(xmesh,ymesh,zmesh,['trafo_iter' num2str(i) '.vtr'],{},{'Flussdichte',Bc(idxV,:);'Material',material(idxV)})
-
-end
+ 
+ % Parameter fuer Brauer's Kurve
+ k1  = 0.3774;
+ k2  = 2.970; 
+ k3  = 388.33;
+ 
+ % Startwerte fuer die Fixpunktiteration 
+ aold = zeros(3*Np,1);
+ a    = zeros(3*Np,1);
+ i    = 0;
+ 
+ % Fixpunkt iteration
+ while (i<2) || norm(a-aold)/norm(a) > 1e-6 
+ 	
+ 	% update der Variablen
+ 	aold=a;
+ 	i=i+1;
+ 	fprintf('Iteration %d\n',i);
+ 	
+ 	% berechne magnetische Flusse im Volumen
+ 	b       = C*a;
+ 	B       = zeros(3*Np,1);
+ 	B(idxA) = b(idxA)./dA(idxA);
+ 	Bc      = fit_pf2pc(xmesh,ymesh,zmesh,B,idxV);
+ 	
+ 	% Auswertung der Materialkurve
+ 	Biron   = sqrt(sum( Bc(idxiron,:).^2, 2) );
+ 	nu(idxiron) = fit_calc_nu(Biron,k1,k2,k3);
+ 	
+ 	% Update der Materialmatrix
+ 	Mnu = createMny(prb.xmesh',prb.ymesh',prb.zmesh',nu);
+ 
+ 	% create and shrink curl-curl matrix
+ 	K = C'*Mnu*C;
+ 	Kdof = K(idxdof(:),idxdof(:));
+ 
+ 	% loese GLS
+ 	Zdof = sparse(1:size(Kdof,1),1:size(Kdof,2),sqrt(diag(Kdof)));
+ 	a(idxdof) = pcg(Kdof,jdof,1e-7,1000,Zdof,Zdof,a(idxdof));
+ 
+ 	% Ausgabe
+ 	fit_write_vtk(xmesh,ymesh,zmesh,['trafo_iter' num2str(i) '.vtr'],{},{'Flussdichte',Bc(idxV,:);'Material',material(idxV)})
+ 
+ end
 
 

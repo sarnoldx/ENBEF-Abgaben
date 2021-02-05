@@ -11,10 +11,6 @@ My = Nx;
 Mz = Nx*Ny;
 
 
-stepx = calc_steps(Nx,xmesh(1,Nx)-xmesh(1,1));
-stepy = calc_steps(Ny,ymesh(1,Ny)-ymesh(1,1));
-stepz = calc_steps(Nz,zmesh(1,Nz)-zmesh(1,1));
-
 dA = sparse(Np,3);
 ddA = sparse(Np,3);
 dS = sparse(Np,3);
@@ -31,13 +27,13 @@ for nz = 1 : Nz
     for ny = 1 : Ny
         for nx = 1 : Nx
             if nx < Nx
-                dx(n) = stepx;
+                dx(n) = xmesh(1,nx+1)-xmesh(1,nx);
             end
             if ny < Ny
-                dy(n) = stepy;
+                dy(n) = ymesh(1,ny+1)-ymesh(1,ny);
             end
             if nz < Nz
-                dz(n) = stepz;
+                dz(n) = zmesh(1,nz+1)-zmesh(1,nz);
             end
             n = n+1;
         end

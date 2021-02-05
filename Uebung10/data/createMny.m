@@ -29,13 +29,13 @@ end
 
 for n = 1 : Np
     if n-My>=1
-        avgny = fit_calc_avgny(dS(n,2),dS(n-My,1),ddS(n,2),ny(n,1),ny(n-My,1));
+        avgny = fit_calc_avgny(dS(n,2),dS(n-My,2),ddS(n,2),ny(n,1),ny(n-My,1));
     else
         avgny = fit_calc_avgny(dS(n,2),0,ddS(n,2),ny(n,1),0);
     end
     
     if dA(n,2) == 0
-        Mny(n,n) = 0;
+        Mny(Np+n,Np+n) = 0;
     else
         Mny(Np+n,Np+n) = (avgny*ddS(n,2))/dA(n,2);
     end
@@ -49,7 +49,7 @@ for n = 1 : Np
     end
     
     if dA(n,3) == 0
-        Mny(n,n) = 0;
+        Mny(2*Np+n,2*Np+n) = 0;
     else
         Mny(2*Np+n,2*Np+n) = (avgny*ddS(n,3))/dA(n,3);
     end
