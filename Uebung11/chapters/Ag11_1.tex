@@ -1,0 +1,82 @@
+\chapter{Ausarbeitung der Aufgaben}
+\section{Konkrete FEM Matrizen in 1D}
+Das Problem $\dfrac{\mathrm{d}}{\mathrm{d}x}\left(a(x)\dfrac{\mathrm{d}}{\mathrm{d}x}U(x)\right)+b(x)=0$ soll mit dem Ritz-Galerkin Verfahren gelöst werden. Hierbei gilt nach der Vorlesung
+\begin{equation}
+\label{gl:1} 
+\mb{K}^i\mb{u}^i=\mb{f}^i,
+\end{equation}
+\begin{equation} 
+\mb{K}^i = \int\limits_{x_i}^{x_{i+1}} \frac{\mathrm{d}(\mb{N}^i(x))^T}{\mathrm{d}x} a(x) \frac{\mathrm{d}\mb{N}^i(x)}{\mathrm{d}x} \ \mathrm{d}x,
+\end{equation}
+\begin{equation} 
+\mb{f}^i = \int\limits_{x_i}^{x_{i+1}} (\mb{N}^i(x))^T b(x) \ \mathrm{d}x,
+\end{equation}
+mit $a(x)=a_i$ für $x\in\left(x_i,x_{i+1}\right]$ und $b(x)$ analog. Zu dem ist $\mb{N}$ definiert als $\mb{N}^i(x) = \left[N_i(x),N_{i+1}(x)\right]$ mit 
+\begin{equation} 
+N_i = \begin{cases}
+0 & x<x_{i-1} \\
+\frac{x-x_{i-1}}{x_i-x_{i-1}} & x_{i-1} \leq x < x_i \\
+1-\frac{x-x_i}{x_{i+1}-x_i} & x_i \leq x < x_{i+1} \\
+0 & x\geq x_{i+1} 
+\end{cases}.
+\end{equation}
+
+Die expliziten Formen von $\mb{K}^i$ und $\mb{f}^i$ lauten:
+\begin{equation} 
+\mb{K}^i = \dfrac{a_i}{x_{i+1}-x_i}
+\left[\begin{matrix}
+1 & -1  \\
+-1 & 1  \\
+\end{matrix}\right],
+\end{equation}
+\begin{equation} 
+\mb{f}^i = \dfrac{1}{2}b_i(x_{i+1}-x_i)
+\left[\begin{matrix}
+1  \\
+1  \\
+\end{matrix}\right]
+\end{equation}
+
+Für den Fall von $n=5$ Knoten ($x_1,x_2,\ldots,x_5$) müssen für jedes Intervall die Matrizen $\mb{K}^i$ und $\mb{f}^i$ aufgestellt werden, also insgesamt $n-1=4$ mal. Das Gleichungssystem (\ref{gl:1}) ergibt sich aus der Zusammensetzung von vier Matrizen $\mb{K}^i$ und $\mb{f}^i$:
+ 
+\begin{equation}
+\label{gl:fertig} 
+\left[\begin{matrix}
+K^1_{1,1} & K^1_{1,2} & 0 & 0 & 0  \\
+K^1_{2,1} & K^1_{2,2}+K^2_{1,1} & K^2_{1,2} & 0 & 0  \\
+0 & K^2_{2,1} & K^2_{2,2}+K^3_{1,1} & K^3_{1,2} & 0  \\
+0 & 0 & K^3_{2,1} & K^3_{2,2}+K^4_{1,1} & K^4_{1,2}  \\
+0 & 0 & 0 & K^4_{2,1} & K^4_{2,2}  \\
+\end{matrix}\right]
+\left[\begin{matrix}
+u_1  \\
+u_2  \\
+u_3  \\
+u_4  \\
+u_5  \\
+\end{matrix}\right]
+=
+\left[\begin{matrix}
+\mathrm{f}^1_1  \\
+\mathrm{f}^1_2+\mathrm{f}^2_1  \\
+\mathrm{f}^2_2+\mathrm{f}^3_1  \\
+\mathrm{f}^3_2+\mathrm{f}^4_1  \\
+\mathrm{f}^4_2  \\
+\end{matrix}\right]
+\end{equation}
+
+Hierbei gilt:
+\begin{equation*} 
+\mb{K}^i =
+\left[\begin{matrix}
+K^i_{1,1} & K^i_{1,2}  \\
+K^i_{2,1} & K^i_{2,2}  \\
+\end{matrix}\right]\text{und }
+\mb{f}^i =
+\left[\begin{matrix}
+\mathrm{f}^i_1  \\
+\mathrm{f}^i_2  \\
+\end{matrix}\right].
+\end{equation*}
+
+Die Routine, die die Matrizen für das Gleichungssystem (\ref{gl:fertig}) aufstellt ist im Anhang zu finden (Code (\ref{code})).
