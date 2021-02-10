@@ -1,0 +1,19 @@
+\section{Nichtlineare Permeabilität}
+Im vorherigen Abschnitt wurde beschrieben, wie man die magnetische Flussdichte innerhalb eines Transformators mit linearem Material simulieren kann. Nun soll im folgenden der gleiche Prozess durchgeführt werden, dieses mal mit einer nicht linearen Kennlinie der Permeabilität. Die Permeabilität hängt hierbei von der magnetischen Flussdichte $B$ ab, da diese zu Beginn der Berechnung nicht bekannt ist muss ein iteratives Verfahren verwendet werden. Die Kennlinie wird durch 
+\begin{equation}
+	\nu(B) = k_1^{k_2|B|^2} + k_3 \textrm{  mit  } |B| = \sqrt{B^2_x+B^2_y+B^2_z}
+\end{equation} beschrieben, wobei $k_1 = 0,3374$, $k_2 = 2,970$ und $k_3 = 388.33$ gilt.\\ \\
+Um das entstehende Gleichungssystem der Form \b{A}(\b{x})\b{x} = \b{b} zu lösen wird die Fixpunkt-Iteration verwendet. Man nimmt den Ansatz 
+\begin{equation}
+	\mb{A}(\mb{x}^{(i)})\mb{x}^{(i+1)}=\mb{b},
+\end{equation} wobei die $\mb{x}^{i}$ die Lösung im Schritt $i$ und $\mb{x}^{i+1}$ die Lösung im Schritt $i+1$ beschreibt. Die neue Lösung wird unter Zuhilfenahme der alten Lösung berechnet. Dieses Verfahren ist in dem Skript \tt{trafo\_nichtlinear}, welches im Anhang zu finden ist, mit Hilfe einer while-Schleife implementiert. Die Iteration bricht ab, sobald 
+\begin{equation}
+	\frac{||\mb{x}^{(i+1)}-\mb{x}^{(i)}||}{||\mb{x}^{(i+1)}||} < 10^{-6}
+	\label{eq:norm}
+\end{equation} erfüllt ist. Zunächst wird $\mb{x} = \mb{0}$ gewählt, um sicherzustellen, die erste Bedingung der Schleife \tt{i < 2} garantiert, dass mindestens ein \glqq altes\grqq{} und ein \glqq neues\grqq{} berechnet werden. $\mb{A}$ ist in dem zu untersuchenden magnetostatischen Problem durch $\mb{K} = \mb{C}'\mb{M}_\nu \mb{C}$ gegeben. Die linke Seite \b{b} des Gleichungssystems ist der Anregungsstromvektor \b{j}. Die Unbekannte \b{x} stellt das zu berechnende magnetische Vektorpotenzial \b{a} dar. Zusätzlich dazu sind Randbedingungen festgelegt. \\
+Bei sehr kleinem Anregungsstrom lässt sich kein magnetisches Feld berechnen, je größer der Anregungsstrom wird, desto mehr Iterationsschritte werden benötigt und dementsprechend dauert die Berechnung länger. Exemplarisch ist das magnetische Feld innerhalb eines Transformators mit einem Anregungsstrom der Spulen von \SI{10}{\ampere} in der Abbildung \ref{fig:BFeld} zu sehen.
+\begin{figure}
+	\includegraphics[width=\textwidth]{data/BFeld}
+	\caption{Das im Transformator entstehende Magnetfeld mit einem Anregungsstrom von \SI{10}{\ampere}}
+	\label{fig:BFeld}
+\end{figure}

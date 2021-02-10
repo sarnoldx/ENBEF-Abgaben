@@ -25,7 +25,7 @@ idxiron = find(material==6); % Indizes fuer Eisen
 C = prb.C;       % Curl-Matrix
 
 % Anregungsvektor mit 10A Strom pro Spule
-jsrc  = prb.Qstr*[1;1];
+jsrc  = prb.Qstr*[10;10];
 jdof  = jsrc(idxdof);
  
 % Reluktivitaet 
@@ -89,7 +89,7 @@ fit_write_vtk(xmesh,ymesh,zmesh,['trafo_iter' num2str(0) '.vtr'],{},{'Flussdicht
  	nu(idxiron) = fit_calc_nu(Biron,k1,k2,k3);
  	
  	% Update der Materialmatrix
- 	Mnu = createMny(prb.xmesh',prb.ymesh',prb.zmesh',nu);
+ 	Mnu = createMny(xmesh',ymesh',zmesh',nu);
  
  	% create and shrink curl-curl matrix
  	K = C'*Mnu*C;
@@ -100,7 +100,7 @@ fit_write_vtk(xmesh,ymesh,zmesh,['trafo_iter' num2str(0) '.vtr'],{},{'Flussdicht
  	a(idxdof) = pcg(Kdof,jdof,1e-7,1000,Zdof,Zdof,a(idxdof));
  
  	% Ausgabe
- 	fit_write_vtk(xmesh,ymesh,zmesh,['trafo_iter' num2str(i) '.vtr'],{},{'Flussdichte',Bc(idxV,:);'Material',material(idxV)})
+ 	fit_write_vtk(xmesh,ymesh,zmesh,['trafo_ite2rrrrr' num2str(i) '.vtr'],{},{'Flussdichte',Bc(idxV,:);'Material',material(idxV)})
  
  end
 
